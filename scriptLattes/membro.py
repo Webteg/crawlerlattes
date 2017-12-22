@@ -89,10 +89,6 @@ class Membro:
     # tabelaQualisDosTipos = {}
     # tabelaQualisDasCategorias = [{}]
 
-    # Eventos
-    listaParticipacaoEmEvento = []
-    listaOrganizacaoDeEvento = []
-
     rotuloCorFG = ''
     rotuloCorBG = ''
 
@@ -298,7 +294,7 @@ class Membro:
                         retorno = 1
                         break
                 return retorno
-            
+
     def filtrarItems(self, lista):
         return filter(self.estaDentroDoPeriodo, lista)
 
@@ -372,8 +368,7 @@ class Membro:
             s += "\n- Artigos aceitos para publicação             : " + str(len(self.listaArtigoAceito))
             s += "\n- Apresentações de Trabalho                   : " + str(len(self.listaApresentacaoDeTrabalho))
             s += "\n- Demais tipos de produção bibliográfica      : " + str(len(self.listaOutroTipoDeProducaoBibliografica))
-            s += "\n- Participação em eventos                     : " + str(len(self.listaParticipacaoEmEvento))
-            s += "\n- Organização de eventos                      : " + str(len(self.listaOrganizacaoDeEvento))
+
             s += "\n\n"
         return s
 

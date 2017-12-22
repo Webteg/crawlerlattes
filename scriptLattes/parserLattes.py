@@ -42,8 +42,7 @@ from producoesBibliograficas.resumoEmCongresso import *
 from producoesBibliograficas.artigoAceito import *
 from producoesBibliograficas.apresentacaoDeTrabalho import *
 from producoesBibliograficas.outroTipoDeProducaoBibliografica import *
-from eventos.organizacaoDeEvento import *
-from eventos.participacaoEmEvento import *
+
 
 sys.tracebacklimit = 0
 
@@ -86,8 +85,7 @@ class ParserLattes(HTMLParser):
     achouProducaoEmCTA = None
 
     achouBancas = None
-    achouEventos = None
-    achouOrientacoes = None
+
     achouOutrasInformacoesRelevantes = None
     spanInformacaoArtigo = None
 
@@ -135,10 +133,6 @@ class ParserLattes(HTMLParser):
     listaApresentacaoDeTrabalho = []
     listaOutroTipoDeProducaoBibliografica = []
 
-
-    # Eventos
-    listaParticipacaoEmEvento = []
-    listaOrganizacaoDeEvento = []
 
     # auxiliares
     doi = ''
@@ -312,8 +306,8 @@ class ParserLattes(HTMLParser):
             self.achouProducoes = 0
             #self.achouProducaoEmCTA = 0
             self.achouBancas = 0
-            self.achouEventos = 0
-            self.achouOrientacoes = 0
+
+
             self.achouOutrasInformacoesRelevantes = 0
             self.salvarItem = 0
 
@@ -499,14 +493,7 @@ class ParserLattes(HTMLParser):
                                 self.listaOutroTipoDeProducaoBibliografica.append(iessimoItem)
 
 
-                    #if self.achouBancas:
 
-                    if self.achouEventos:
-                        if self.achouParticipacaoEmEvento:
-                            self.listaParticipacaoEmEvento.append(ParticipacaoEmEvento(self.idMembro, self.partesDoItem))
-
-                        if self.achouOrganizacaoDeEvento:
-                            self.listaOrganizacaoDeEvento.append(OrganizacaoDeEvento(self.idMembro, self.partesDoItem))
 
 
 
@@ -550,10 +537,7 @@ class ParserLattes(HTMLParser):
 
             if u'Bancas'==dado:
                 self.achouBancas = 1
-            if u'Eventos'==dado:
-                self.achouEventos = 1
-            if u'Orientações'==dado:
-                self.achouOrientacoes = 1
+
 
             if u'Outras informações relevantes'==dado:
                 self.achouOutrasInformacoesRelevantes = 1
@@ -712,15 +696,7 @@ class ParserLattes(HTMLParser):
             if u'Participação em bancas de trabalhos de conclusão'==dado:
                 self.salvarItem = 0
 
-        if self.achouEventos:
-            if u'Participação em eventos, congressos, exposições e feiras'==dado:
-                self.salvarItem = 1
-                self.achouParticipacaoEmEvento  = 1
-                self.achouOrganizacaoDeEvento = 0
-            if u'Organização de eventos, congressos, exposições e feiras'==dado:
-                self.salvarItem = 1
-                self.achouParticipacaoEmEvento  = 0
-                self.achouOrganizacaoDeEvento = 1
+
 
 
 
