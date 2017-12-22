@@ -236,7 +236,7 @@ class GeradorDePaginasWeb:
                 s += '<i>Nenhuma publicação com DOI disponível para análise</i>'.decode("utf8")
             s += '</ul>'
 
-        s += self.paginaBottom()
+
         self.salvarPagina("index" + self.extensaoPagina, s)
 
 
@@ -320,11 +320,9 @@ class GeradorDePaginasWeb:
                 <h3>{titulo}</h3> <br>
                     <div id="container" style="min-width: 310px; max-width: 1920px; height: {height}; margin: 0"></div>
                     Número total de itens: {numero_itens}<br>
-                    {totais_qualis}
-                    {indice_paginas}
-                    {producoes}
+
                     </table>
-                {bottom}
+
               '''
         return st
 
@@ -427,18 +425,6 @@ class GeradorDePaginasWeb:
         return chart
 
     def gerar_pagina_de_producoes(self, lista_completa, titulo_pagina, prefixo, ris=False):
-        totais_qualis = ""
-        if self.grupo.obterParametro('global-identificar_publicacoes_com_qualis'):
-            if self.grupo.obterParametro('global-arquivo_qualis_de_periodicos'):  # FIXME: nao está mais sendo usado agora que há qualis online
-                if prefixo == 'PB0':
-                    totais_qualis = self.formatarTotaisQualis(self.grupo.qualis.qtdPB0)
-                elif prefixo == 'PB7':
-                    totais_qualis = self.formatarTotaisQualis(self.grupo.qualis.qtdPB7)
-            if self.grupo.obterParametro('global-arquivo_qualis_de_congressos'):
-                if prefixo == 'PB4':
-                    totais_qualis = self.formatarTotaisQualis(self.grupo.qualis.qtdPB4)
-                elif prefixo == 'PB5':
-                    totais_qualis = self.formatarTotaisQualis(self.grupo.qualis.qtdPB5)
 
         total_producoes = sum(len(v) for v in lista_completa.values())
 
@@ -471,13 +457,9 @@ class GeradorDePaginasWeb:
                 producoes_html += '</table></div>'
 
                 pagina_html = self.template_pagina_de_producoes()
-                pagina_html = pagina_html.format(top=self.pagina_top(), bottom=self.paginaBottom(),
+                pagina_html = pagina_html.format(top=self.pagina_top(),
                                                  grafico=grafico.html(), height=grafico['chart']['height'],
-                                                 titulo=titulo_pagina.decode("utf8"), numero_itens=str(total_producoes),
-                                                 totais_qualis=totais_qualis,
-                                                 indice_paginas=self.gerarIndiceDePaginas(total_paginas, numero_pagina,
-                                                                                          prefixo),
-                                                 producoes=producoes_html)
+                                                 titulo=titulo_pagina.decode("utf8"), numero_itens=str(total_producoes))
                 self.salvarPagina(prefixo + '-' + str(numero_pagina) + self.extensaoPagina, pagina_html)
         return total_producoes
 
@@ -550,7 +532,7 @@ class GeradorDePaginasWeb:
                         st += self.gerarIndiceDePaginas(numeroDePaginas, numeroDePaginaAtual, prefixo)
                         st += s  #.decode("utf8")
                         st += '</table>'
-                        st += self.paginaBottom()
+
 
                         self.salvarPagina(prefixo + '-' + str(numeroDePaginaAtual) + self.extensaoPagina, st)
                         numeroDePaginaAtual += 1
@@ -565,106 +547,7 @@ class GeradorDePaginasWeb:
         return numeroTotalDeProducoes
 
 
-    def gerarPaginaDeGrafosDeColaboracoes(self):
-        lista = ''
-        if self.grupo.obterParametro('grafo-incluir_artigo_em_periodico'):
-            lista += 'Artigos completos publicados em periódicos, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_livro_publicado'):
-            lista += 'Livros publicados/organizados ou edições, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_capitulo_de_livro_publicado'):
-            lista += 'Capítulos de livros publicados, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_texto_em_jornal_de_noticia'):
-            lista += 'Textos em jornais de notícias/revistas, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_trabalho_completo_em_congresso'):
-            lista += 'Trabalhos completos publicados em anais de congressos, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_resumo_expandido_em_congresso'):
-            lista += 'Resumos expandidos publicados em anais de congressos, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_resumo_em_congresso'):
-            lista += 'Resumos publicados em anais de congressos, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_artigo_aceito_para_publicacao'):
-            lista += 'Artigos aceitos para publicação, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_apresentacao_de_trabalho'):
-            lista += 'Apresentações de trabalho, '.decode("utf8")
-        if self.grupo.obterParametro('grafo-incluir_outro_tipo_de_producao_bibliografica'):
-            lista += 'Demais tipos de produção bibliográfica, '.decode("utf8")
 
-        lista = lista.strip().strip(",")
-
-        s = self.pagina_top()
-        s += '\n<h3>Grafo de colabora&ccedil;&otilde;es</h3> \
-        <a href=membros' + self.extensaoPagina + '>' + str(self.grupo.numeroDeMembros()) + ' curriculos Lattes</a> foram considerados, \
-        gerando os seguintes grafos de colabora&ccedil;&otilde;es encontradas com base nas produ&ccedil;&otilde;es: <i>' + lista + '</i>. <br><p>'.decode(
-            "utf8")
-
-        prefix = self.grupo.obterParametro('global-prefixo') + '-' if not self.grupo.obterParametro(
-            'global-prefixo') == '' else ''
-        # s+='Veja <a href="grafoDeColaboracoesInterativo'+self.extensaoPagina+'?entradaScriptLattes=./'+prefix+'matrizDeAdjacencia.xml">na seguinte página</a> uma versão interativa do grafo de colabora&ccedil;&otilde;es.<br><p><br><p>'.decode("utf8")
-
-        s += '\nClique no nome dentro do vértice para visualizar o currículo Lattes. Para cada nó: o valor entre colchetes indica o número \
-        de produ&ccedil;&otilde;es feitas em colabora&ccedil;&atilde;o apenas com os outros membros do próprio grupo. <br>'.decode(
-            "utf8")
-
-        if self.grupo.obterParametro('grafo-considerar_rotulos_dos_membros_do_grupo'):
-            s += 'As cores representam os seguintes rótulos: '.decode("utf8")
-            for i in range(0, len(self.grupo.listaDeRotulos)):
-                rot = self.grupo.listaDeRotulos[i].decode("utf8", "ignore")
-                cor = self.grupo.listaDeRotulosCores[i].decode("utf8")
-                if rot == '':
-                    rot = '[Sem rótulo]'.decode("utf8")
-                s += '<span style="background-color:' + cor + '">&nbsp;&nbsp;&nbsp;&nbsp;</span>' + rot + ' '
-        s += '\
-        <ul> \
-        <li><b>Grafo de colabora&ccedil;&otilde;es sem pesos</b><br> \
-            <img src=grafoDeColaboracoesSemPesos.png border=1 ISMAP USEMAP="#grafo1"> <br><p> \
-        <li><b>Grafo de colabora&ccedil;&otilde;es com pesos</b><br> \
-            <img src=grafoDeColaboracoesComPesos.png border=1 ISMAP USEMAP="#grafo2"> <br><p> \
-        <li><b>Grafo de colabora&ccedil;&otilde;es com pesos normalizados</b><br> \
-            <img src=grafoDeColaboracoesNormalizado.png border=1 ISMAP USEMAP="#grafo3"> \
-        </ul>'.decode("utf8")
-
-        cmapx1 = self.grupo.grafosDeColaboracoes.grafoDeCoAutoriaSemPesosCMAPX
-        cmapx2 = self.grupo.grafosDeColaboracoes.grafoDeCoAutoriaComPesosCMAPX
-        cmapx3 = self.grupo.grafosDeColaboracoes.grafoDeCoAutoriaNormalizadoCMAPX
-        s += '<map id="grafo1" name="grafo1">' + cmapx1.decode("utf8") + '\n</map>\n'
-        s += '<map id="grafo2" name="grafo2">' + cmapx2.decode("utf8") + '\n</map>\n'
-        s += '<map id="grafo3" name="grafo3">' + cmapx3.decode("utf8") + '\n</map>\n'
-
-        if self.grupo.obterParametro('grafo-incluir_grau_de_colaboracao'):
-            s += '<br><p><h3>Grau de colaboração</h3> \
-                O grau de colaboração (<i>Collaboration Rank</i>) é um valor numérico que indica o impacto de um membro no grafo de colaborações.\
-                <br>Esta medida é similar ao <i>PageRank</i> para grafos direcionais (com pesos).<br><p>'.decode("utf8")
-
-            ranks, autores, rotulos = zip(
-                *sorted(zip(self.grupo.vectorRank, self.grupo.nomes, self.grupo.rotulos), reverse=True))
-
-            s += '<table border=1><tr> <td><i><b>Collaboration Rank</b></i></td> <td><b>Membro</b></td> </tr>'
-            for i in range(0, len(ranks)):
-                s += '<tr><td>' + str(round(ranks[i], 2)) + '</td><td>' + autores[i] + '</td></tr>'
-            s += '</table> <br><p>'
-
-            if self.grupo.obterParametro('grafo-considerar_rotulos_dos_membros_do_grupo'):
-                for i in range(0, len(self.grupo.listaDeRotulos)):
-                    somaAuthorRank = 0
-
-                    rot = self.grupo.listaDeRotulos[i].decode("utf8", "ignore")
-                    cor = self.grupo.listaDeRotulosCores[i].decode("utf8")
-                    s += '<b><span style="background-color:' + cor + '">&nbsp;&nbsp;&nbsp;&nbsp;</span>' + rot + '</b><br>'
-
-                    s += '<table border=1><tr> <td><i><b>AuthorRank</b></i></td> <td><b>Membro</b></td> </tr>'
-                    for i in range(0, len(ranks)):
-                        if rotulos[i] == rot:
-                            s += '<tr><td>' + str(round(ranks[i], 2)) + '</td><td>' + autores[i] + '</td></tr>'
-                            somaAuthorRank += ranks[i]
-                    s += '</table> <br> Total: ' + str(round(somaAuthorRank, 2)) + '<br><p>'
-
-        s += self.paginaBottom()
-        self.salvarPagina("grafoDeColaboracoes" + self.extensaoPagina, s)
-
-        # grafo interativo
-        s = self.pagina_top()
-        s += '<applet code=MyGraph.class width=1280 height=800 archive="http://www.vision.ime.usp.br/creativision/graphview/graphview.jar,http://www.vision.ime.usp.br/creativision/graphview/prefuse.jar"></applet></body></html>'
-        s += self.paginaBottom()
-        self.salvarPagina("grafoDeColaboracoesInterativo" + self.extensaoPagina, s)
 
     @staticmethod
     def producao_qualis(elemento, membro):
@@ -864,7 +747,7 @@ class GeradorDePaginasWeb:
         #     }\
         # });\
 
-        s += self.paginaBottom()
+
 
         self.salvarPagina("membros" + self.extensaoPagina, s)
 
@@ -947,7 +830,7 @@ class GeradorDePaginasWeb:
         s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB9', titulo_PB9, nPB9, lista_PB9)
         s += u'</ul>'
 
-        s += self.paginaBottom()
+
         self.salvarPagina("membro-" + membro.idLattes + self.extensaoPagina, s)
 
 
@@ -1032,7 +915,7 @@ class GeradorDePaginasWeb:
         producao_por_membro = self.producao_qualis_por_membro(self.grupo.listaDeMembros)
 
         if producao_por_membro.empty:
-            html += self.paginaBottom()
+
             self.salvarPagina("producao_membros" + self.extensaoPagina, html)
             return
 
@@ -1130,7 +1013,7 @@ class GeradorDePaginasWeb:
         producao_por_membro.to_excel(os.path.abspath(xls_filename))
         html += '<a href="{}">{}</a>'.format(os.path.abspath(xls_filename), 'Baixar planilha com os dados')
 
-        html += self.paginaBottom()
+
         self.salvarPagina("producao_membros" + self.extensaoPagina, html)
 
     def pagina_top(self, cabecalho=''):
@@ -1156,48 +1039,7 @@ class GeradorDePaginasWeb:
         s += template.format(nome_grupo=nome_grupo, cabecalho=cabecalho)
         return s
 
-    def paginaBottom(self):
-        agora = datetime.datetime.now()
-        dia = '0' + str(agora.day)
-        mes = '0' + str(agora.month)
-        ano = str(agora.year)
-        hora = '0' + str(agora.hour)
-        minuto = '0' + str(agora.minute)
-        segundo = '0' + str(agora.second)
 
-        dia = dia[-2:]
-        mes = mes[-2:]
-        hora = hora[-2:]
-        minuto = minuto[-2:]
-        segundo = segundo[-2:]
-        data = dia + "/" + mes + "/" + ano + " " + hora + ":" + minuto + ":" + segundo
-
-        s = '<br><p>'
-        if not self.grupo.obterParametro('global-itens_desde_o_ano') == '' and not self.grupo.obterParametro(
-                'global-itens_ate_o_ano') == '':
-            s += '<br>(*) Relatório criado com produções desde ' + self.grupo.obterParametro(
-                'global-itens_desde_o_ano') + ' até ' + self.grupo.obterParametro('global-itens_ate_o_ano')
-
-        s += '\n<br>Data de processamento: ' + data + '<br> \
-        <div id="footer"> \
-        Este arquivo foi gerado automaticamente por <a href="http://scriptlattes.sourceforge.net/">scriptLattes ' + self.version + '</a>. \
-        Os resultados estão sujeitos a falhas devido a inconsistências no preenchimento dos currículos Lattes. Caso note alguma falha, por favor, contacte o responsável por esta página: <a href="mailto:' + self.grupo.obterParametro('global-email_do_admin') + '">' + self.grupo.obterParametro('global-email_do_admin') + '</a> \
-        </div> '
-
-        if self.grupo.obterParametro('global-google_analytics_key'):
-            s += '<script type="text/javascript">\
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");\
-            document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));\
-            </script>\
-            <script type="text/javascript">\
-            try {\
-              var pageTracker = _gat._getTracker("' + self.grupo.obterParametro('global-google_analytics_key') + '");\
-              pageTracker._trackPageview();\
-            } catch(err) {}\
-            </script>'
-        s += '</body>' + self.html2
-
-        return s.decode("utf8")
 
 
     def salvarPagina(self, nome, conteudo):
@@ -1209,19 +1051,6 @@ class GeradorDePaginasWeb:
     def salvarPublicacaoEmFormatoRIS(self, pub):
         self.arquivoRis.write(pub.ris().encode('utf8'))
 
-
-    def formatarTotaisQualis(self, qtd):
-        st = '(<b>A1</b>: '+str(qtd['A1'])+', <b>A2</b>: '+str(qtd['A2'])+', <b>B1</b>: '+str(qtd['B1'])+', <b>B2</b>: '+str(qtd['B2'])
-        st+= ', <b>B3</b>: '+str(qtd['B3'])+', <b>B4</b>: '+str(qtd['B4'])+', <b>B5</b>: '+str(qtd['B5'])+', <b>C</b>: '+str(qtd['C'])
-        st+= ', <b>Qualis n&atilde;o identificado</b>: '+str(qtd['Qualis nao identificado'])+')'
-        st+= '<br><p><b>Legenda Qualis:</b><ul>'
-        st+= '<li> Publica&ccedil;&atilde;o para a qual o nome exato do Qualis foi identificado: <font color="#254117"><b>Qualis &lt;estrato&gt;</b></font>'
-        st+= '<li> Publica&ccedil;&atilde;o para a qual um nome similar (n&atilde;o exato) do Qualis foi identificado: <font color="#F88017"><b>Qualis &lt;estrato&gt;</b></font> (nome similar)'
-        st+= '<li> Publica&ccedil;&atilde;o para a qual nenhum nome do Qualis foi identificado: <font color="#FDD7E4"><b>Qualis n&atilde;o identificado</b></font> (nome usado na busca)'
-        st+= '</ul>'
-        return st
-
-        #return 'Sem totais qualis ainda...'
 
 
 def menuHTMLdeBuscaPB(titulo):
