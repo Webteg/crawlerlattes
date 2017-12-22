@@ -106,8 +106,7 @@ class GeradorDePaginasWeb:
            <meta name="Generator" content="scriptLattes"> \
            <link rel="stylesheet" href="css/scriptLattes.css" type="text/css">  \
            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
-        if self.grupo.obterParametro('mapa-mostrar_mapa_de_geolocalizacao'):
-            s += self.grupo.mapaDeGeolocalizacao.mapa  #.encode("utf8")
+
 
         s += '</head> \n \
         <body onload="initialize()" onunload="GUnload()"> <div id="header">  \
@@ -134,8 +133,7 @@ class GeradorDePaginasWeb:
         if self.grupo.obterParametro('grafo-mostrar_grafo_de_colaboracoes'):
             s += '| <a href=#grafo>Grafo de colaborações</a> '.decode("utf8")
 
-        if self.grupo.obterParametro('mapa-mostrar_mapa_de_geolocalizacao'):
-            s += '| <a href=#mapa>Mapa de geolocalização</a> '.decode("utf8")
+
 
         if self.grupo.obterParametro('relatorio-incluir_internacionalizacao'):
             s += '| <a href=#internacionalizacao>Internacionalização</a> '.decode("utf8")
@@ -321,11 +319,8 @@ class GeradorDePaginasWeb:
         if self.grupo.obterParametro('grafo-mostrar_grafo_de_colaboracoes'):
             s += '</ul> <h3 id="grafo">Grafo de colaborações</h3> <ul>'.decode("utf8")
             s += '<a href="grafoDeColaboracoes' + self.extensaoPagina + '"><img src="grafoDeColaboracoesSemPesos-t.png" border=1> </a>'
-        s += '</ul>'
+            s += '</ul><b>Legenda</b><table>'
 
-        if self.grupo.obterParametro('mapa-mostrar_mapa_de_geolocalizacao'):
-            s += '<h3 id="mapa">Mapa de geolocaliza&ccedil;&atilde;o</h3> <br> <div id="map_canvas" style="width: 800px; height: 600px"></div> <br>'
-            s += '<b>Legenda</b><table>'
             if self.grupo.obterParametro('mapa-incluir_membros_do_grupo'):
                 s += '<tr><td> <img src=lattesPoint0.png></td> <td> Membro (orientador) </td></tr>'.decode("utf8")
             if self.grupo.obterParametro('mapa-incluir_alunos_de_pos_doutorado'):

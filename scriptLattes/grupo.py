@@ -36,7 +36,6 @@ from compiladorDeListas import CompiladorDeListas
 from authorRank import AuthorRank
 from geradorDePaginasWeb import GeradorDePaginasWeb
 from charts.grafoDeColaboracoes import *
-from charts.mapaDeGeolocalizacao import *
 from qualis.qualis import *
 
 
@@ -82,19 +81,18 @@ class Grupo:
     matrizDeFrequenciaNormalizada = None
     vetorDeCoAutoria = None
     grafosDeColaboracoes = None
-    mapaDeGeolocalizacao = None
+
     geradorDeXml = None
 
     vectorRank = None
     nomes = None
     rotulos = None
-    geolocalizacoes = None
+
 
     qualis = None
     colaboradores_endogenos = None
     listaDeColaboracoes = None
 
-    dicionarioDeGeolocalizacao = dict([])
 
 
     def __init__(self, arquivo):
@@ -161,7 +159,7 @@ class Grupo:
                 ###### self.listaDeMembros.append(Membro(idSequencial, '', nome, periodo, rotulo, self.itemsDesdeOAno, self.itemsAteOAno, xml=identificador))
                 ###	self.listaDeMembros.append(Membro(idSequencial, identificador, nome, periodo, rotulo, self.itemsDesdeOAno, self.itemsAteOAno, diretorioCache))
                 ###else:
-                self.listaDeMembros.append( Membro(idSequencial, identificador, nome, periodo, rotulo, self.itemsDesdeOAno, self.itemsAteOAno, self.diretorioCache, self.dicionarioDeGeolocalizacao))
+                self.listaDeMembros.append( Membro(idSequencial, identificador, nome, periodo, rotulo, self.itemsDesdeOAno, self.itemsAteOAno, self.diretorioCache))
 
                 self.listaDeRotulos.append(rotulo)
                 idSequencial += 1
@@ -241,11 +239,7 @@ class Grupo:
         rawIDsColaboradores = list(set(rawIDsColaboradores))
         self.salvarListaTXT(rawIDsColaboradores, prefix + "colaboradores.txt")
 
-        # (5) Geolocalizacoes
-        self.geolocalizacoes = list([])
-        for membro in self.listaDeMembros:
-            self.geolocalizacoes.append(str(membro.enderecoProfissionalLat) + "," + str(membro.enderecoProfissionalLon))
-        self.salvarListaTXT(self.geolocalizacoes, prefix + "listaDeGeolocalizacoes.txt")
+
 
         # (6) arquivo GDF
         self.gerarArquivoGDF(prefix + "rede.gdf")
@@ -279,8 +273,7 @@ class Grupo:
                 valor = "nao"
             if par[0]=='grafo-considerar_rotulos_dos_membros_do_grupo':
                 valor = "sim"
-            if par[0]=='mapa-mostrar_mapa_de_geolocalizacao':
-                valor = "nao"
+
             t.append( par[0].ljust(60) + " = " + valor )
         self.salvarListaTXT(t, "producao-com-colaboradores.config")
 
@@ -379,9 +372,6 @@ class Grupo:
             membro.filtrarItemsPorPeriodo()
             print membro
 
-    def gerarMapaDeGeolocalizacao(self):
-        if self.obterParametro('mapa-mostrar_mapa_de_geolocalizacao'):
-            self.mapaDeGeolocalizacao = MapaDeGeolocalizacao(self)
 
     def gerarPaginasWeb(self):
         paginasWeb = GeradorDePaginasWeb(self)
@@ -757,7 +747,7 @@ class Grupo:
 
         self.listaDeParametros.append(['grafo-incluir_grau_de_colaboracao', 'nao'])
 
-        self.listaDeParametros.append(['mapa-mostrar_mapa_de_geolocalizacao', 'sim'])
+
         self.listaDeParametros.append(['mapa-incluir_membros_do_grupo', 'sim'])
         self.listaDeParametros.append(['mapa-incluir_alunos_de_pos_doutorado', 'sim'])
         self.listaDeParametros.append(['mapa-incluir_alunos_de_doutorado', 'sim'])
@@ -777,26 +767,3 @@ class Grupo:
 
         for i in range(0, self.numeroDeMembros()):
             print ( self.colaboradores_endogenos[i] )
-
-
-    def carregar_dados_temporarios_de_geolocalizacao(self):
-        print ("\n\n[CARREGANDO DADOS DE GEOLOCALIZACAO]: dados/geolocalizao.txt")
-        for linha in fileinput.input('dados/geolocalizao.txt'):
-            linha    = linha.replace("\r", "")
-            linha    = linha.replace("\n", "")
-            linhaDiv = linha.split("\t")
-            if len(linhaDiv) == 3:
-                self.dicionarioDeGeolocalizacao[ linhaDiv[0] ]  = (linhaDiv[1], linhaDiv[2])
-                print(linha)
-
-    def salvar_dados_temporarios_de_geolocalizacao(self):
-        print ("\n\n[SALVANDO DADOS DE GEOLOCALIZACAO]: dados/geolocalizao.txt")
-        s = u''
-        for chave in self.dicionarioDeGeolocalizacao.keys():
-            (lat, lon) = self.dicionarioDeGeolocalizacao[chave]
-            s += '{}\t{}\t{}\n'.format( chave, lat, lon )
-            print u'- {}\t{}\t{}'.format(chave, lat, lon)
-
-        arquivo = open('dados/geolocalizao.txt', 'w')
-        arquivo.write(s)
-        arquivo.close()

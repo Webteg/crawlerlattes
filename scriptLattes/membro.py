@@ -31,7 +31,7 @@ from baixaLattes import baixaCVLattes
 
 from parserLattes import *
 from parserLattesXML import *
-from charts.geolocalizador import *
+
 
 
 class Membro:
@@ -133,11 +133,11 @@ class Membro:
     nomePrimeiraArea       = ''
     instituicao            = ''
 
-    dicionarioDeGeolocalizacao = None
+
 
     ###def __init__(self, idMembro, identificador, nome, periodo, rotulo, itemsDesdeOAno, itemsAteOAno, xml=''):
 
-    def __init__(self, idMembro, identificador, nome, periodo, rotulo, itemsDesdeOAno, itemsAteOAno, diretorioCache, dicionarioDeGeolocalizacao=None):
+    def __init__(self, idMembro, identificador, nome, periodo, rotulo, itemsDesdeOAno, itemsAteOAno, diretorioCache):
         self.idMembro = idMembro
         self.idLattes = identificador
         self.nomeInicial = nome
@@ -146,7 +146,7 @@ class Membro:
         self.rotulo = rotulo
         self.rotuloCorFG = '#000000'
         self.rotuloCorBG = '#FFFFFF'
-        self.dicionarioDeGeolocalizacao = dicionarioDeGeolocalizacao
+
 
         p = re.compile('[a-zA-Z]+')
 
@@ -439,10 +439,7 @@ class Membro:
                             break
                     return retorno
 
-    def obterCoordenadasDeGeolocalizacao(self):
-        geo = Geolocalizador(self.enderecoProfissional, self.dicionarioDeGeolocalizacao)
-        self.enderecoProfissionalLat = geo.lat
-        self.enderecoProfissionalLon = geo.lon
+
 
     def ris(self):
         s = ''

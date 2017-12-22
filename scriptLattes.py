@@ -1,16 +1,16 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # encoding: utf-8
 #
 #
 #  scriptLattes
 #  Copyright http://scriptlattes.sourceforge.net/
 #
-#  Este programa é um software livre; você pode redistribui-lo e/ou 
-#  modifica-lo dentro dos termos da Licença Pública Geral GNU como 
-#  publicada pela Fundação do Software Livre (FSF); na versão 2 da 
+#  Este programa é um software livre; você pode redistribui-lo e/ou
+#  modifica-lo dentro dos termos da Licença Pública Geral GNU como
+#  publicada pela Fundação do Software Livre (FSF); na versão 2 da
 #  Licença, ou (na sua opinião) qualquer versão.
 #
-#  Este programa é distribuído na esperança que possa ser util, 
+#  Este programa é distribuído na esperança que possa ser util,
 #  mas SEM NENHUMA GARANTIA; sem uma garantia implicita de ADEQUAÇÂO a qualquer
 #  MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
 #  Licença Pública Geral GNU para maiores detalhes.
@@ -38,7 +38,7 @@ def executar_scriptLattes(arquivoConfiguracao):
     # os.chdir( os.path.abspath(os.path.join(arquivoConfiguracao, os.pardir)))
     novoGrupo = Grupo(arquivoConfiguracao)
     novoGrupo.imprimirListaDeRotulos()
-    novoGrupo.carregar_dados_temporarios_de_geolocalizacao()
+
 
     if criarDiretorio(novoGrupo.obterParametro('global-diretorio_de_saida')):
         novoGrupo.carregarDadosCVLattes() #obrigatorio
@@ -47,11 +47,9 @@ def executar_scriptLattes(arquivoConfiguracao):
         novoGrupo.calcularInternacionalizacao() # obrigatorio
 
         novoGrupo.gerarGrafosDeColaboracoes() # obrigatorio
-        novoGrupo.gerarMapaDeGeolocalizacao() # obrigatorio
         novoGrupo.gerarPaginasWeb() # obrigatorio
         novoGrupo.gerarArquivosTemporarios() # obrigatorio
 
-        novoGrupo.salvar_dados_temporarios_de_geolocalizacao()
 
         # copiar imagens e css
         copiarArquivos(novoGrupo.obterParametro('global-diretorio_de_saida'))
@@ -82,4 +80,3 @@ if __name__ == "__main__":
     logger.info("Executando '{}'".format(' '.join(sys.argv)))
 
     executar_scriptLattes(sys.argv[1])
-
