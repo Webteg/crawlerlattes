@@ -64,17 +64,7 @@ class Grupo:
     matrizArtigoAceito = None
     matrizApresentacaoDeTrabalho = None
     matrizOutroTipoDeProducaoBibliografica = None
-    matrizSoftwareComPatente = None
-    matrizSoftwareSemPatente = None
-    matrizProdutoTecnologico = None
-    matrizProcessoOuTecnica = None
-    matrizTrabalhoTecnico = None
-    matrizOutroTipoDeProducaoTecnica = None
 
-
-    matrizPatente = None
-    matrizProgramaComputador = None
-    matrizDesenhoIndustrial = None
 
     matrizDeAdjacencia = None
     matrizDeFrequencia = None
@@ -528,42 +518,9 @@ class Grupo:
         gBarra.criarGrafico(self.compilador.listaCompletaOutroTipoDeProducaoBibliografica, 'PB9',
                             'Numero de publicacoes')
 
-        gBarra.criarGrafico(self.compilador.listaCompletaSoftwareComPatente, 'PT0', 'Numero de producoes tecnicas')
-        gBarra.criarGrafico(self.compilador.listaCompletaSoftwareSemPatente, 'PT1', 'Numero de producoes tecnicas')
-        gBarra.criarGrafico(self.compilador.listaCompletaProdutoTecnologico, 'PT2', u'Numero de producoes tecnicas')
-        gBarra.criarGrafico(self.compilador.listaCompletaProcessoOuTecnica, 'PT3', 'Numero de producoes tecnicas')
-        gBarra.criarGrafico(self.compilador.listaCompletaTrabalhoTecnico, 'PT4', 'Numero de producoes tecnicas')
-        gBarra.criarGrafico(self.compilador.listaCompletaOutroTipoDeProducaoTecnica, 'PT5',
-                            'Numero de producoes tecnicas')
-
-        gBarra.criarGrafico(self.compilador.listaCompletaPatente, 'PR0', 'Numero de patentes')
-        gBarra.criarGrafico(self.compilador.listaCompletaProgramaComputador, 'PR1', 'Numero de programa de computador')
-        gBarra.criarGrafico(self.compilador.listaCompletaDesenhoIndustrial, 'PR2', 'Numero de desenho industrial')
-
-
-        gBarra.criarGrafico(self.compilador.listaCompletaOASupervisaoDePosDoutorado, 'OA0', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOATeseDeDoutorado, 'OA1', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOADissertacaoDeMestrado, 'OA2', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOAMonografiaDeEspecializacao, 'OA3', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOATCC, 'OA4', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOAIniciacaoCientifica, 'OA5', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOAOutroTipoDeOrientacao, 'OA6', 'Numero de orientacoes')
-
-        gBarra.criarGrafico(self.compilador.listaCompletaOCSupervisaoDePosDoutorado, 'OC0', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOCTeseDeDoutorado, 'OC1', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOCDissertacaoDeMestrado, 'OC2', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOCMonografiaDeEspecializacao, 'OC3', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOCTCC, 'OC4', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOCIniciacaoCientifica, 'OC5', 'Numero de orientacoes')
-        gBarra.criarGrafico(self.compilador.listaCompletaOCOutroTipoDeOrientacao, 'OC6', 'Numero de orientacoes')
-
-        gBarra.criarGrafico(self.compilador.listaCompletaPremioOuTitulo, 'Pm', 'Numero de premios')
-        gBarra.criarGrafico(self.compilador.listaCompletaProjetoDePesquisa, 'Pj', 'Numero de projetos')
 
         gBarra.criarGrafico(self.compilador.listaCompletaPB, 'PB', 'Numero de producoes bibliograficas')
-        gBarra.criarGrafico(self.compilador.listaCompletaPT, 'PT', 'Numero de producoes tecnicas')
-        gBarra.criarGrafico(self.compilador.listaCompletaOA, 'OA', 'Numero de orientacoes em andamento')
-        gBarra.criarGrafico(self.compilador.listaCompletaOC, 'OC', 'Numero de orientacoes concluidas')
+
 
         gBarra.criarGrafico(self.compilador.listaCompletaParticipacaoEmEvento, 'Ep', 'Numero de Eventos')
         gBarra.criarGrafico(self.compilador.listaCompletaOrganizacaoDeEvento, 'Eo', 'Numero de Eventos')
@@ -682,34 +639,8 @@ class Grupo:
         self.listaDeParametros.append(['relatorio-incluir_apresentacao_de_trabalho', 'sim'])
         self.listaDeParametros.append(['relatorio-incluir_outro_tipo_de_producao_bibliografica', 'sim'])
 
-        self.listaDeParametros.append(['relatorio-incluir_software_com_patente', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_software_sem_patente', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_produto_tecnologico', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_processo_ou_tecnica', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_trabalho_tecnico', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_outro_tipo_de_producao_tecnica', 'sim'])
-
-        self.listaDeParametros.append(['relatorio-incluir_patente', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_programa_computador', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_desenho_industrial', 'sim'])
 
 
-        self.listaDeParametros.append(['relatorio-mostrar_orientacoes', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_em_andamento_pos_doutorado', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_em_andamento_doutorado', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_em_andamento_mestrado', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_em_andamento_monografia_de_especializacao', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_em_andamento_tcc', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_em_andamento_iniciacao_cientifica', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_em_andamento_outro_tipo', 'sim'])
-
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_concluida_pos_doutorado', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_concluida_doutorado', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_concluida_mestrado', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_concluida_monografia_de_especializacao', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_concluida_tcc', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_concluida_iniciacao_cientifica', 'sim'])
-        self.listaDeParametros.append(['relatorio-incluir_orientacao_concluida_outro_tipo', 'sim'])
 
         self.listaDeParametros.append(['relatorio-incluir_projeto', 'sim'])
         self.listaDeParametros.append(['relatorio-incluir_premio', 'sim'])
@@ -733,16 +664,8 @@ class Grupo:
         self.listaDeParametros.append(['grafo-incluir_apresentacao_de_trabalho', 'sim'])
         self.listaDeParametros.append(['grafo-incluir_outro_tipo_de_producao_bibliografica', 'sim'])
 
-        self.listaDeParametros.append(['grafo-incluir_software_com_patente', 'sim'])
-        self.listaDeParametros.append(['grafo-incluir_software_sem_patente', 'sim'])
-        self.listaDeParametros.append(['grafo-incluir_produto_tecnologico', 'sim'])
-        self.listaDeParametros.append(['grafo-incluir_processo_ou_tecnica', 'sim'])
-        self.listaDeParametros.append(['grafo-incluir_trabalho_tecnico', 'sim'])
-        self.listaDeParametros.append(['grafo-incluir_outro_tipo_de_producao_tecnica', 'sim'])
 
-        self.listaDeParametros.append(['grafo-incluir_patente', 'sim'])
-        self.listaDeParametros.append(['grafo-incluir_programa_computador', 'sim'])
-        self.listaDeParametros.append(['grafo-incluir_desenho_industrial', 'sim'])
+
 
 
         self.listaDeParametros.append(['grafo-incluir_grau_de_colaboracao', 'nao'])

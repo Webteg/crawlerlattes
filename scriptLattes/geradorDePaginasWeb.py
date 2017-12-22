@@ -65,18 +65,7 @@ class GeradorDePaginasWeb:
         self.gerar_pagina_de_membros()
         #self.gerar_pagina_de_producao_qualificado_por_membro()
         self.gerarPaginasDeProducoesBibliograficas()
-        self.gerarPaginasDeProducoesTecnicas()
 
-        self.gerarPaginasDePatentes()
-
-        if self.grupo.obterParametro('relatorio-mostrar_orientacoes'):
-            self.gerarPaginasDeOrientacoes()
-
-        if self.grupo.obterParametro('relatorio-incluir_projeto'):
-            self.gerarPaginasDeProjetos()
-
-        if self.grupo.obterParametro('relatorio-incluir_premio'):
-            self.gerarPaginasDePremios()
 
         if self.grupo.obterParametro('relatorio-incluir_participacao_em_evento'):
             self.gerarPaginasDeParticipacaoEmEventos()
@@ -114,17 +103,12 @@ class GeradorDePaginasWeb:
 
         #| <a href=producao_membros' + self.extensaoPagina + '>Produção qualificado por membro</a> \
         s += '[ <a href=membros' + self.extensaoPagina + '><b>Membros</b></a> \
-            | <a href=#producaoBibliografica>Produção bibliográfica</a> \
-            | <a href=#producaoTecnica>Produção técnica</a>'.decode("utf8")
+            | <a href=#producaoBibliografica>Produção bibliográfica</a>'.decode("utf8")
 
         if self.grupo.obterParametro('relatorio-mostrar_orientacoes'):
             s += '| <a href=#orientacoes>Orientações</a> '.decode("utf8")
 
-        if self.grupo.obterParametro('relatorio-incluir_projeto'):
-            s += '| <a href=#projetos>Projetos</a> '.decode("utf8")
 
-        if self.grupo.obterParametro('relatorio-incluir_premio'):
-            s += '| <a href=#premios>Prêmios</a> '.decode("utf8")
 
         if self.grupo.obterParametro('relatorio-incluir_participacao_em_evento') or self.grupo.obterParametro(
                 'relatorio-incluir_organizacao_de_evento'):
@@ -180,30 +164,6 @@ class GeradorDePaginasWeb:
         else:
             s += '<i>Nenhum item achado nos currículos Lattes</i>'.decode("utf8")
 
-        s += '</ul> <h3 id="producaoTecnica">Produção técnica</h3> <ul>'.decode("utf8")
-        if self.nPT0 > 0:
-            s += '<li> <a href="PT0-0' + self.extensaoPagina + '">Programas de computador com registro de patente</a> '.decode(
-                "utf8") + '(' + str(self.nPT0) + ')'
-        if self.nPT1 > 0:
-            s += '<li> <a href="PT1-0' + self.extensaoPagina + '">Programas de computador sem registro de patente</a> '.decode(
-                "utf8") + '(' + str(self.nPT1) + ')'
-        if self.nPT2 > 0:
-            s += '<li> <a href="PT2-0' + self.extensaoPagina + '">Produtos tecnológicos</a> '.decode(
-                "utf8") + '(' + str(self.nPT2) + ')'
-        if self.nPT3 > 0:
-            s += '<li> <a href="PT3-0' + self.extensaoPagina + '">Processos ou técnicas</a> '.decode(
-                "utf8") + '(' + str(self.nPT3) + ')'
-        if self.nPT4 > 0:
-            s += '<li> <a href="PT4-0' + self.extensaoPagina + '">Trabalhos técnicos</a> '.decode("utf8") + '(' + str(
-                self.nPT4) + ')'
-        if self.nPT5 > 0:
-            s += '<li> <a href="PT5-0' + self.extensaoPagina + '">Demais tipos de produção técnica</a> '.decode(
-                "utf8") + '(' + str(self.nPT5) + ')'
-        if self.nPT > 0:
-            s += '<li> <a href="PT-0' + self.extensaoPagina + '">Total de produção técnica</a> '.decode(
-                "utf8") + '(' + str(self.nPT) + ')'
-        else:
-            s += '<i>Nenhum item achado nos currículos Lattes</i>'.decode("utf8")
 
 
             # s+='</ul> <h3 id="patenteRegistro">Patente e Registro</h3> <ul>'.decode("utf8")
@@ -280,23 +240,9 @@ class GeradorDePaginasWeb:
                 s += '<i>Nenhum item achado nos currículos Lattes</i>'.decode("utf8")
             s += '</ul>'
 
-        if self.grupo.obterParametro('relatorio-incluir_projeto'):
-            s += '</ul> <h3 id="projetos">Projetos de pesquisa</h3> <ul>'.decode("utf8")
-            if self.nPj > 0:
-                s += '<li> <a href="Pj-0' + self.extensaoPagina + '">Total de projetos de pesquisa</a> '.decode(
-                    "utf8") + '(' + str(self.nPj) + ')'
-            else:
-                s += '<i>Nenhum item achado nos currículos Lattes</i>'.decode("utf8")
-            s += '</ul>'
 
-        if self.grupo.obterParametro('relatorio-incluir_premio'):
-            s += '</ul> <h3 id="premios">Prêmios e títulos</h3> <ul>'.decode("utf8")
-            if self.nPm > 0:
-                s += '<li> <a href="Pm-0' + self.extensaoPagina + '">Total de prêmios e títulos</a> '.decode(
-                    "utf8") + '(' + str(self.nPm) + ')'
-            else:
-                s += '<i>Nenhum item achado nos currículos Lattes</i>'.decode("utf8")
-            s += '</ul>'
+
+
 
         if self.grupo.obterParametro('relatorio-incluir_participacao_em_evento'):
             s += '</ul> <h3 id="eventos">Participação em eventos</h3> <ul>'.decode("utf8")
@@ -397,141 +343,6 @@ class GeradorDePaginasWeb:
         self.nPB = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaPB,
                                                   "Total de produção bibliográfica", "PB")
 
-
-    def gerarPaginasDeProducoesTecnicas(self):
-        self.nPT0 = 0
-        self.nPT1 = 0
-        self.nPT2 = 0
-        self.nPT3 = 0
-        self.nPT4 = 0
-        self.nPT5 = 0
-        self.nPT = 0
-
-        if self.grupo.obterParametro('relatorio-incluir_software_com_patente'):
-            self.nPT0 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaSoftwareComPatente,
-                                                       "Softwares com registro de patente", "PT0")
-        if self.grupo.obterParametro('relatorio-incluir_software_sem_patente'):
-            self.nPT1 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaSoftwareSemPatente,
-                                                       "Softwares sem registro de patente", "PT1")
-        if self.grupo.obterParametro('relatorio-incluir_produto_tecnologico'):
-            self.nPT2 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaProdutoTecnologico,
-                                                       "Produtos tecnológicos", "PT2")
-        if self.grupo.obterParametro('relatorio-incluir_processo_ou_tecnica'):
-            self.nPT3 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaProcessoOuTecnica,
-                                                       "Processos ou técnicas", "PT3")
-        if self.grupo.obterParametro('relatorio-incluir_trabalho_tecnico'):
-            self.nPT4 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaTrabalhoTecnico,
-                                                       "Trabalhos técnicos", "PT4")
-        if self.grupo.obterParametro('relatorio-incluir_outro_tipo_de_producao_tecnica'):
-            self.nPT5 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOutroTipoDeProducaoTecnica,
-                                                       "Demais tipos de produção técnica", "PT5")
-        # Total de produções técnicas
-        self.nPT = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaPT, "Total de produção técnica",
-                                                  "PT")
-
-
-
-
-
-    def gerarPaginasDePatentes(self):
-        self.nPR0 = 0
-        self.nPR1 = 0
-        self.nPR2 = 0
-        self.nPR = 0
-
-        # if self.grupo.obterParametro('relatorio-incluir_patente'):
-
-        #	self.nPR0 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaPatente, "Patente", "PR0")
-        #	self.nPR1 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaProgramaComputador, "Programa de computador", "PR1")
-        #	self.nPR2 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaDesenhoIndustrial, "Desenho industrial", "PR2")
-
-        # Total de produções técnicas
-
-    #self.nPR = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaPR, "Total de patentes e registros", "PR")
-
-
-    def gerarPaginasDeOrientacoes(self):
-        self.nOA0 = 0
-        self.nOA1 = 0
-        self.nOA2 = 0
-        self.nOA3 = 0
-        self.nOA4 = 0
-        self.nOA5 = 0
-        self.nOA6 = 0
-        self.nOA = 0
-
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_em_andamento_pos_doutorado'):
-            self.nOA0 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOASupervisaoDePosDoutorado,
-                                                       "Supervisão de pós-doutorado", "OA0")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_em_andamento_doutorado'):
-            self.nOA1 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOATeseDeDoutorado,
-                                                       "Tese de doutorado", "OA1")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_em_andamento_mestrado'):
-            self.nOA2 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOADissertacaoDeMestrado,
-                                                       "Dissertação de mestrado", "OA2")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_em_andamento_monografia_de_especializacao'):
-            self.nOA3 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOAMonografiaDeEspecializacao,
-                                                       "Monografia de conclusão de curso de aperfeiçoamento/especialização",
-                                                       "OA3")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_em_andamento_tcc'):
-            self.nOA4 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOATCC,
-                                                       "Trabalho de conclusão de curso de graduação", "OA4")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_em_andamento_iniciacao_cientifica'):
-            self.nOA5 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOAIniciacaoCientifica,
-                                                       "Iniciação científica", "OA5")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_em_andamento_outro_tipo'):
-            self.nOA6 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOAOutroTipoDeOrientacao,
-                                                       "Orientações de outra natureza", "OA6")
-        # Total de orientações em andamento
-        self.nOA = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOA,
-                                                  "Total de orientações em andamento", "OA")
-
-        self.nOC0 = 0
-        self.nOC1 = 0
-        self.nOC2 = 0
-        self.nOC3 = 0
-        self.nOC4 = 0
-        self.nOC5 = 0
-        self.nOC6 = 0
-        self.nOC  = 0
-
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_concluida_pos_doutorado'):
-            self.nOC0 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOCSupervisaoDePosDoutorado,
-                                                       "Supervisão de pós-doutorado", "OC0")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_concluida_doutorado'):
-            self.nOC1 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOCTeseDeDoutorado,
-                                                       "Tese de doutorado", "OC1")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_concluida_mestrado'):
-            self.nOC2 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOCDissertacaoDeMestrado,
-                                                       "Dissertação de mestrado", "OC2")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_concluida_monografia_de_especializacao'):
-            self.nOC3 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOCMonografiaDeEspecializacao,
-                                                       "Monografia de conclusão de curso de aperfeiçoamento/especialização",
-                                                       "OC3")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_concluida_tcc'):
-            self.nOC4 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOCTCC,
-                                                       "Trabalho de conclusão de curso de graduação", "OC4")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_concluida_iniciacao_cientifica'):
-            self.nOC5 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOCIniciacaoCientifica,
-                                                       "Iniciação científica", "OC5")
-        if self.grupo.obterParametro('relatorio-incluir_orientacao_concluida_outro_tipo'):
-            self.nOC6 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOCOutroTipoDeOrientacao,
-                                                       "Orientações de outra natureza", "OC6")
-        # Total de orientações concluídas
-        self.nOC = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaOC,
-                                                  "Total de orientações concluídas", "OC")
-
-
-    def gerarPaginasDeProjetos(self):
-        self.nPj = 0
-        self.nPj = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaProjetoDePesquisa,
-                                                  "Total de projetos de pesquisa", "Pj")
-
-
-    def gerarPaginasDePremios(self):
-        self.nPm = 0
-        self.nPm = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaPremioOuTitulo,
-                                                  "Total de prêmios e títulos", "Pm")
 
     def gerarPaginasDeParticipacaoEmEventos(self):
         self.nEp = 0
@@ -1167,32 +978,6 @@ class GeradorDePaginasWeb:
         (nPB8, lista_PB8, titulo_PB8) = self.gerar_lista_de_producoes_de_membro( membro.listaApresentacaoDeTrabalho, u"Apresentações de trabalho" )
         (nPB9, lista_PB9, titulo_PB9) = self.gerar_lista_de_producoes_de_membro( membro.listaOutroTipoDeProducaoBibliografica, u"Demais tipos de produção bibliográfica" )
 
-        (nPT0, lista_PT0, titulo_PT0) = self.gerar_lista_de_producoes_de_membro( membro.listaSoftwareComPatente, u"Programas de computador com registro de patente" )
-        (nPT1, lista_PT1, titulo_PT1) = self.gerar_lista_de_producoes_de_membro( membro.listaSoftwareSemPatente, u"Programas de computador sem registro de patente" )
-        (nPT2, lista_PT2, titulo_PT2) = self.gerar_lista_de_producoes_de_membro( membro.listaProdutoTecnologico, u"Produtos tecnológicos" )
-        (nPT3, lista_PT3, titulo_PT3) = self.gerar_lista_de_producoes_de_membro( membro.listaProcessoOuTecnica, u"Processos ou técnicas" )
-        (nPT4, lista_PT4, titulo_PT4) = self.gerar_lista_de_producoes_de_membro( membro.listaTrabalhoTecnico, u"Trabalhos técnicos" )
-        (nPT5, lista_PT5, titulo_PT5) = self.gerar_lista_de_producoes_de_membro( membro.listaOutroTipoDeProducaoTecnica, u"Demais tipos de produção técnica" )
-
-
-        (nOA0, lista_OA0, titulo_OA0) = self.gerar_lista_de_producoes_de_membro( membro.listaOASupervisaoDePosDoutorado, u"Supervisão de pós-doutorado" )
-        (nOA1, lista_OA1, titulo_OA1) = self.gerar_lista_de_producoes_de_membro( membro.listaOATeseDeDoutorado, u"Tese de doutorado" )
-        (nOA2, lista_OA2, titulo_OA2) = self.gerar_lista_de_producoes_de_membro( membro.listaOADissertacaoDeMestrado, u"Dissertação de mestrado" )
-        (nOA3, lista_OA3, titulo_OA3) = self.gerar_lista_de_producoes_de_membro( membro.listaOAMonografiaDeEspecializacao, u"Monografia de conclusão de curso de aperfeiçoamento/especialização" )
-        (nOA4, lista_OA4, titulo_OA4) = self.gerar_lista_de_producoes_de_membro( membro.listaOATCC, u"Trabalho de conclusão de curso de graduação" )
-        (nOA5, lista_OA5, titulo_OA5) = self.gerar_lista_de_producoes_de_membro( membro.listaOAIniciacaoCientifica, u"Iniciação científica" )
-        (nOA6, lista_OA6, titulo_OA6) = self.gerar_lista_de_producoes_de_membro( membro.listaOAOutroTipoDeOrientacao, u"Orientações de outra natureza" )
-
-        (nOC0, lista_OC0, titulo_OC0) = self.gerar_lista_de_producoes_de_membro( membro.listaOCSupervisaoDePosDoutorado, u"Supervisão de pós-doutorado" )
-        (nOC1, lista_OC1, titulo_OC1) = self.gerar_lista_de_producoes_de_membro( membro.listaOCTeseDeDoutorado, u"Tese de doutorado" )
-        (nOC2, lista_OC2, titulo_OC2) = self.gerar_lista_de_producoes_de_membro( membro.listaOCDissertacaoDeMestrado, u"Dissertação de mestrado" )
-        (nOC3, lista_OC3, titulo_OC3) = self.gerar_lista_de_producoes_de_membro( membro.listaOCMonografiaDeEspecializacao, u"Monografia de conclusão de curso de aperfeiçoamento/especialização" )
-        (nOC4, lista_OC4, titulo_OC4) = self.gerar_lista_de_producoes_de_membro( membro.listaOCTCC, u"Trabalho de conclusão de curso de graduação" )
-        (nOC5, lista_OC5, titulo_OC5) = self.gerar_lista_de_producoes_de_membro( membro.listaOCIniciacaoCientifica, u"Iniciação científica" )
-        (nOC6, lista_OC6, titulo_OC6) = self.gerar_lista_de_producoes_de_membro( membro.listaOCOutroTipoDeOrientacao, u"Orientações de outra natureza" )
-
-        (nPj0, lista_Pj0, titulo_Pj0) = self.gerar_lista_de_producoes_de_membro( membro.listaProjetoDePesquisa, u"Total de projetos de pesquisa" )
-        (nPm0, lista_Pm0, titulo_Pm0) = self.gerar_lista_de_producoes_de_membro( membro.listaPremioOuTitulo, u"Total de prêmios e títulos" )
         (nEp0, lista_Ep0, titulo_Ep0) = self.gerar_lista_de_producoes_de_membro( membro.listaParticipacaoEmEvento, u"Total de participação em eventos" )
         (nEo0, lista_Eo0, titulo_Eo0) = self.gerar_lista_de_producoes_de_membro( membro.listaOrganizacaoDeEvento, u"Total de organização de eventos" )
 
@@ -1209,38 +994,6 @@ class GeradorDePaginasWeb:
         s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB7', titulo_PB7, nPB7 )
         s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB8', titulo_PB8, nPB8 )
         s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB9', titulo_PB9, nPB9 )
-        s += u'</ul>'
-        s += u'<h3>Produção técnica</h3> <ul>'
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PT0', titulo_PT0, nPT0 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PT1', titulo_PT1, nPT1 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PT2', titulo_PT2, nPT2 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PT3', titulo_PT3, nPT3 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PT4', titulo_PT4, nPT4 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PT5', titulo_PT5, nPT5 )
-        s += u'</ul>'
-        s += u'<h3>Orientações em andamento</h3> <ul>'
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OA0', titulo_OA0, nOA0 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OA1', titulo_OA1, nOA1 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OA2', titulo_OA2, nOA2 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OA3', titulo_OA3, nOA3 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OA4', titulo_OA4, nOA4 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OA5', titulo_OA5, nOA5 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OA6', titulo_OA6, nOA6 )
-        s += u'</ul>'
-        s += u'<h3>Supervisões e orientações concluídas</h3> <ul>'
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OC0', titulo_OC0, nOC0 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OC1', titulo_OC1, nOC1 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OC2', titulo_OC2, nOC2 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OC3', titulo_OC3, nOC3 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OC4', titulo_OC4, nOC4 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OC5', titulo_OC5, nOC5 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'OC6', titulo_OC6, nOC6 )
-        s += u'</ul>'
-        s += u'<h3>Projetos de pesquisa</h3> <ul>'
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'Pj0', titulo_Pj0, nPj0 )
-        s += u'</ul>'
-        s += u'<h3>Prêmios e títulos</h3> <ul>'
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'Pm0', titulo_Pm0, nPm0 )
         s += u'</ul>'
         s += u'<h3>Participação em eventos</h3> <ul>'
         s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'Ep0', titulo_Ep0, nEp0 )
@@ -1267,38 +1020,7 @@ class GeradorDePaginasWeb:
         s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB8', titulo_PB8, nPB8, lista_PB8)
         s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB9', titulo_PB9, nPB9, lista_PB9)
         s += u'</ul>'
-        s += u'<h3>Produção técnica</h3> <ul>'
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PT0', titulo_PT0, nPT0, lista_PT0)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PT1', titulo_PT1, nPT1, lista_PT1)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PT2', titulo_PT2, nPT2, lista_PT2)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PT3', titulo_PT3, nPT3, lista_PT3)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PT4', titulo_PT4, nPT4, lista_PT4)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PT5', titulo_PT5, nPT5, lista_PT5)
-        s += u'</ul>'
-        s += u'<h3>Orientações em andamento</h3> <ul>'
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OA0', titulo_OA0, nOA0, lista_OA0)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OA1', titulo_OA1, nOA1, lista_OA1)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OA2', titulo_OA2, nOA2, lista_OA2)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OA3', titulo_OA3, nOA3, lista_OA3)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OA4', titulo_OA4, nOA4, lista_OA4)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OA5', titulo_OA5, nOA5, lista_OA5)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OA6', titulo_OA6, nOA6, lista_OA6)
-        s += u'</ul>'
-        s += u'<h3>Supervisões e orientações concluídas</h3> <ul>'
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OC0', titulo_OC0, nOC0, lista_OC0)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OC1', titulo_OC1, nOC1, lista_OC1)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OC2', titulo_OC2, nOC2, lista_OC2)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OC3', titulo_OC3, nOC3, lista_OC3)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OC4', titulo_OC4, nOC4, lista_OC4)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OC5', titulo_OC5, nOC5, lista_OC5)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'OC6', titulo_OC6, nOC6, lista_OC6)
-        s += u'</ul>'
-        s += u'<h3>Projetos de pesquisa</h3> <ul>'
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'Pj0', titulo_Pj0, nPj0, lista_Pj0)
-        s += u'</ul>'
-        s += u'<h3>Prêmios e títulos</h3> <ul>'
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'Pm0', titulo_Pm0, nPm0, lista_Pm0)
-        s += u'</ul>'
+
         s += u'<h3>Participação em eventos</h3> <ul>'
         s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'Ep0', titulo_Ep0, nEp0, lista_Ep0)
         s += u'</ul>'

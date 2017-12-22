@@ -32,9 +32,6 @@ from HTMLParser import HTMLParser
 from producoesUnitarias.formacaoAcademica import *
 from producoesUnitarias.areaDeAtuacao import *
 from producoesUnitarias.idioma import *
-from producoesUnitarias.premioOuTitulo import *
-from producoesUnitarias.projetoDePesquisa import *
-
 from producoesBibliograficas.artigoEmPeriodico import *
 from producoesBibliograficas.livroPublicado import *
 from producoesBibliograficas.capituloDeLivroPublicado import *
@@ -45,19 +42,6 @@ from producoesBibliograficas.resumoEmCongresso import *
 from producoesBibliograficas.artigoAceito import *
 from producoesBibliograficas.apresentacaoDeTrabalho import *
 from producoesBibliograficas.outroTipoDeProducaoBibliografica import *
-
-from producoesTecnicas.softwareComPatente import *
-from producoesTecnicas.softwareSemPatente import *
-from producoesTecnicas.produtoTecnologico import *
-from producoesTecnicas.processoOuTecnica import *
-from producoesTecnicas.trabalhoTecnico import *
-from producoesTecnicas.outroTipoDeProducaoTecnica import *
-
-
-
-from orientacoes.orientacaoEmAndamento import *
-from orientacoes.orientacaoConcluida import *
-
 from eventos.organizacaoDeEvento import *
 from eventos.participacaoEmEvento import *
 
@@ -86,10 +70,8 @@ class ParserLattes(HTMLParser):
     salvarAtualizacaoCV = None
     salvarTextoResumo = None
     salvarFormacaoAcademica = None
-    salvarProjetoDePesquisa = None
     salvarAreaDeAtuacao = None
     salvarIdioma = None
-    salvarPremioOuTitulo = None
     salvarItem = None
     salvarParticipacaoEmEvento = None
     salvarOrganizacaoDeEvento = None
@@ -102,7 +84,7 @@ class ParserLattes(HTMLParser):
     salvarParte3 = None
     achouProducoes = None
     achouProducaoEmCTA = None
-    achouProducaoTecnica = None
+
     achouBancas = None
     achouEventos = None
     achouOrientacoes = None
@@ -117,10 +99,8 @@ class ParserLattes(HTMLParser):
     achouSexo = None
     achouNomeEmCitacoes = None
     achouFormacaoAcademica = None
-    achouProjetoDePesquisa = None
     achouAreaDeAtuacao = None
     achouIdioma = None
-    achouPremioOuTitulo = None
 
     achouArtigoEmPeriodico = None
     achouLivroPublicado = None
@@ -132,32 +112,6 @@ class ParserLattes(HTMLParser):
     achouArtigoAceito = None
     achouApresentacaoDeTrabalho = None
     achouOutroTipoDeProducaoBibliografica = None
-
-    achouSoftwareComPatente = None
-    achouSoftwareSemPatente = None
-    achouProdutoTecnologico = None
-    achouProcessoOuTecnica = None
-    achouTrabalhoTecnico = None
-    achouOutroTipoDeProducaoTecnica = None
-
-    achouPatente = None
-    achouProgramaComputador = None
-    achouDesenhoIndustrial = None
-    achouPatenteRegistro = None
-
-
-
-
-    achouOrientacoesEmAndamento	= None
-    achouOrientacoesConcluidas = None
-    achouSupervisaoDePosDoutorado = None
-    achouTeseDeDoutorado = None
-    achouDissertacaoDeMestrado = None
-    achouMonografiaDeEspecializacao = None
-    achouTCC = None
-    achouIniciacaoCientifica = None
-    achouOutroTipoDeOrientacao = None
-
     achouParticipacaoEmEvento = None
     achouOrganizacaoDeEvento = None
 
@@ -166,10 +120,9 @@ class ParserLattes(HTMLParser):
 
     listaIDLattesColaboradores = []
     listaFormacaoAcademica = []
-    listaProjetoDePesquisa = []
     listaAreaDeAtuacao = []
     listaIdioma = []
-    listaPremioOuTitulo = []
+
 
     listaArtigoEmPeriodico = []
     listaLivroPublicado = []
@@ -182,35 +135,6 @@ class ParserLattes(HTMLParser):
     listaApresentacaoDeTrabalho = []
     listaOutroTipoDeProducaoBibliografica = []
 
-    listaSoftwareComPatente = []
-    listaSoftwareSemPatente = []
-    listaProdutoTecnologico = []
-    listaProcessoOuTecnica = []
-    listaTrabalhoTecnico = []
-    listaOutroTipoDeProducaoTecnica = []
-
-    listaPatente = []
-    listaProgramaComputador = []
-    listaDesenhoIndustrial = []
-
-
-    # Orientaççoes em andamento (OA)
-    listaOASupervisaoDePosDoutorado = []
-    listaOATeseDeDoutorado = []
-    listaOADissertacaoDeMestrado = []
-    listaOAMonografiaDeEspecializacao = []
-    listaOATCC = []
-    listaOAIniciacaoCientifica = []
-    listaOAOutroTipoDeOrientacao = []
-
-    # Orientações concluídas (OC)
-    listaOCSupervisaoDePosDoutorado = []
-    listaOCTeseDeDoutorado = []
-    listaOCDissertacaoDeMestrado = []
-    listaOCMonografiaDeEspecializacao = []
-    listaOCTCC = []
-    listaOCIniciacaoCientifica = []
-    listaOCOutroTipoDeOrientacao = []
 
     # Eventos
     listaParticipacaoEmEvento = []
@@ -237,10 +161,8 @@ class ParserLattes(HTMLParser):
         self.issn = ''
         self.listaIDLattesColaboradores = []
         self.listaFormacaoAcademica = []
-        self.listaProjetoDePesquisa = []
         self.listaAreaDeAtuacao = []
         self.listaIdioma = []
-        self.listaPremioOuTitulo = []
 
         self.listaArtigoEmPeriodico = []
         self.listaLivroPublicado = []
@@ -253,33 +175,6 @@ class ParserLattes(HTMLParser):
         self.listaApresentacaoDeTrabalho = []
         self.listaOutroTipoDeProducaoBibliografica = []
 
-        self.listaSoftwareComPatente = []
-        self.listaSoftwareSemPatente = []
-        self.listaProdutoTecnologico = []
-        self.listaProcessoOuTecnica = []
-        self.listaTrabalhoTecnico = []
-        self.listaOutroTipoDeProducaoTecnica = []
-
-        self.listaPatente = []
-        self.listaProgramaComputador = []
-        self.listaDesenhoIndustrial = []
-
-
-        self.listaOASupervisaoDePosDoutorado = []
-        self.listaOATeseDeDoutorado = []
-        self.listaOADissertacaoDeMestrado = []
-        self.listaOAMonografiaDeEspecializacao = []
-        self.listaOATCC = []
-        self.listaOAIniciacaoCientifica = []
-        self.listaOAOutroTipoDeOrientacao = []
-
-        self.listaOCSupervisaoDePosDoutorado = []
-        self.listaOCTeseDeDoutorado = []
-        self.listaOCDissertacaoDeMestrado = []
-        self.listaOCMonografiaDeEspecializacao = []
-        self.listaOCTCC = []
-        self.listaOCIniciacaoCientifica = []
-        self.listaOCOutroTipoDeOrientacao = []
 
         self.listaParticipacaoEmEvento = []
         self.listaOrganizacaoDeEvento = []
@@ -389,7 +284,7 @@ class ParserLattes(HTMLParser):
 
                 if name=='class' and value=='layout-cell-pad-5 text-align-right':
                     self.item = ''
-                    if self.achouFormacaoAcademica or self.achouAtuacaoProfissional or self.achouProjetoDePesquisa or self.achouMembroDeCorpoEditorial or self.achouRevisorDePeriodico or self.achouAreaDeAtuacao or self.achouIdioma or self.achouPremioOuTitulo or self.salvarItem:
+                    if self.achouFormacaoAcademica or self.achouAtuacaoProfissional or self.achouMembroDeCorpoEditorial or self.achouRevisorDePeriodico or self.achouAreaDeAtuacao or self.achouIdioma or  self.salvarItem:
                         self.salvarParte1 = 1
                         self.salvarParte2 = 0
                         if not self.salvarParte3:
@@ -410,21 +305,18 @@ class ParserLattes(HTMLParser):
             self.achouEndereco = 0
             self.achouFormacaoAcademica = 0
             self.achouAtuacaoProfissional = 0
-            self.achouProjetoDePesquisa = 0
             self.achouMembroDeCorpoEditorial = 0
             self.achouRevisorDePeriodico = 0
             self.achouAreaDeAtuacao = 0
             self.achouIdioma = 0
-            self.achouPremioOuTitulo = 0
             self.achouProducoes = 0
             #self.achouProducaoEmCTA = 0
-            #self.achouProducaoTecnica = 0
             self.achouBancas = 0
             self.achouEventos = 0
             self.achouOrientacoes = 0
             self.achouOutrasInformacoesRelevantes = 0
             self.salvarItem = 0
-            self.achouPatenteRegistro = 0
+
 
         if tag=='img':
             if self.salvarFoto:
@@ -469,8 +361,6 @@ class ParserLattes(HTMLParser):
                     id = re.findall(u'http://lattes.cnpq.br/(\d{16})', value)
                     if name=='href' and len(id)>0:
                         self.listaIDLattesColaboradores.append(id[0])
-                        if self.achouOrientacoesEmAndamento or self.achouOrientacoesConcluidas:
-                            self.idOrientando = id[0]
                         break
 
 
@@ -536,20 +426,6 @@ class ParserLattes(HTMLParser):
                     #if self.achouAtuacaoProfissional:
                     #	print self.partesDoItem
 
-                    if self.achouProjetoDePesquisa:
-                        if not self.salvarParte3:
-                            self.salvarParte3 = 1
-                        else:
-                            self.salvarParte3 = 0
-                            if len(self.partesDoItem)>=3:
-                                iessimoProjetoDePesquisa = ProjetoDePesquisa(self.idMembro, self.partesDoItem) # criamos um objeto com a lista correspondentes às celulas da linha
-                                self.listaProjetoDePesquisa.append(iessimoProjetoDePesquisa) # acrescentamos o objeto de ProjetoDePesquisa
-
-                    #if self.achouMembroDeCorpoEditorial:
-                    #	print self.partesDoItem
-
-                    #if self.achouRevisorDePeriodico:
-                    #	print self.partesDoItem
 
                     if self.achouAreaDeAtuacao and len(self.partesDoItem)>=2:
                         iessimaAreaDeAtucao = AreaDeAtuacao(self.partesDoItem) # criamos um objeto com a lista correspondentes às celulas da linha
@@ -559,22 +435,6 @@ class ParserLattes(HTMLParser):
                         iessimoIdioma = Idioma(self.partesDoItem) # criamos um objeto com a lista correspondentes às celulas da linha
                         self.listaIdioma.append(iessimoIdioma) # acrescentamos o objeto de Idioma
 
-                    if self.achouPremioOuTitulo and len(self.partesDoItem)>=2:
-                        iessimoPremio = PremioOuTitulo(self.idMembro, self.partesDoItem) # criamos um objeto com a lista correspondentes às celulas da linha
-                        self.listaPremioOuTitulo.append(iessimoPremio) # acrescentamos o objeto de PremioOuTitulo
-
-
-                        # if self.achouPatenteRegistro:
-                    #	#print "===>>>> PROCESSANDO PATENTE e REGISTRO"
-                    #	if self.achouPatente:
-                    #		iessimoItem = Patente(self.idMembro, self.partesDoItem, self.relevante)
-                    #		self.listaPatente.append(iessimoItem)
-                    #	if self.achouProgramaComputador:
-                    #		iessimoItem = ProgramaComputador(self.idMembro, self.partesDoItem, self.relevante)
-                    #		self.listaProgramaComputador.append(iessimoItem)
-                    #	if self.achouDesenhoIndustrial:
-                    #		iessimoItem = DesenhoIndustrial(self.idMembro, self.partesDoItem, self.relevante)
-                    #		self.listaDesenhoIndustrial.append(iessimoItem)
 
                     if self.achouProducoes:
                         if self.achouProducaoEmCTA:
@@ -639,34 +499,6 @@ class ParserLattes(HTMLParser):
                                 self.listaOutroTipoDeProducaoBibliografica.append(iessimoItem)
 
 
-                        if self.achouProducaoTecnica:
-                            if self.achouSoftwareComPatente:
-                                iessimoItem = SoftwareComPatente(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaSoftwareComPatente.append(iessimoItem)
-
-                            if self.achouSoftwareSemPatente:
-                                iessimoItem = SoftwareSemPatente(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaSoftwareSemPatente.append(iessimoItem)
-
-                            if self.achouProdutoTecnologico:
-                                iessimoItem = ProdutoTecnologico(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaProdutoTecnologico.append(iessimoItem)
-
-                            if self.achouProcessoOuTecnica:
-                                iessimoItem = ProcessoOuTecnica(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaProcessoOuTecnica.append(iessimoItem)
-
-                            if self.achouTrabalhoTecnico:
-                                iessimoItem = TrabalhoTecnico(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaTrabalhoTecnico.append(iessimoItem)
-
-                            if self.achouOutroTipoDeProducaoTecnica:
-                                iessimoItem = OutroTipoDeProducaoTecnica(self.idMembro, self.partesDoItem,
-                                                                         self.relevante)
-                                self.listaOutroTipoDeProducaoTecnica.append(iessimoItem)
-
-
-
                     #if self.achouBancas:
 
                     if self.achouEventos:
@@ -676,53 +508,6 @@ class ParserLattes(HTMLParser):
                         if self.achouOrganizacaoDeEvento:
                             self.listaOrganizacaoDeEvento.append(OrganizacaoDeEvento(self.idMembro, self.partesDoItem))
 
-
-                    if self.achouOrientacoes:
-                        if self.achouOrientacoesEmAndamento:
-                            if self.achouSupervisaoDePosDoutorado:
-                                self.listaOASupervisaoDePosDoutorado.append( OrientacaoEmAndamento(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouTeseDeDoutorado:
-                                self.listaOATeseDeDoutorado.append( OrientacaoEmAndamento(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouDissertacaoDeMestrado:
-                                self.listaOADissertacaoDeMestrado.append( OrientacaoEmAndamento(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouMonografiaDeEspecializacao:
-                                self.listaOAMonografiaDeEspecializacao.append( OrientacaoEmAndamento(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouTCC:
-                                self.listaOATCC.append( OrientacaoEmAndamento(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouIniciacaoCientifica:
-                                self.listaOAIniciacaoCientifica.append( OrientacaoEmAndamento(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouOutroTipoDeOrientacao:
-                                self.listaOAOutroTipoDeOrientacao.append( OrientacaoEmAndamento(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-
-                        if self.achouOrientacoesConcluidas :
-                            if self.achouSupervisaoDePosDoutorado:
-                                self.listaOCSupervisaoDePosDoutorado.append( OrientacaoConcluida(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouTeseDeDoutorado:
-                                self.listaOCTeseDeDoutorado.append( OrientacaoConcluida(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouDissertacaoDeMestrado:
-                                self.listaOCDissertacaoDeMestrado.append( OrientacaoConcluida(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouMonografiaDeEspecializacao:
-                                self.listaOCMonografiaDeEspecializacao.append( OrientacaoConcluida(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouTCC:
-                                self.listaOCTCC.append( OrientacaoConcluida(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouIniciacaoCientifica:
-                                self.listaOCIniciacaoCientifica.append( OrientacaoConcluida(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
-                            if self.achouOutroTipoDeOrientacao:
-                                self.listaOCOutroTipoDeOrientacao.append( OrientacaoConcluida(self.idMembro, self.partesDoItem, self.idOrientando) )
-                                self.idOrientando = ''
 
 
         if tag=='span':
@@ -752,8 +537,6 @@ class ParserLattes(HTMLParser):
                 self.achouFormacaoAcademica = 1
             if u'Atuação Profissional'==dado:
                 self.achouAtuacaoProfissional = 1
-            if u'Projetos de pesquisa'==dado:
-                self.achouProjetoDePesquisa = 1
             if u'Membro de corpo editorial'==dado:
                 self.achouMembroDeCorpoEditorial = 1
             if u'Revisor de periódico'==dado:
@@ -762,8 +545,6 @@ class ParserLattes(HTMLParser):
                 self.achouAreaDeAtuacao = 1
             if u'Idiomas'==dado:
                 self.achouIdioma = 1
-            if u'Prêmios e títulos'==dado:
-                self.achouPremioOuTitulo = 1
             if u'Produções'==dado:  # !---
                 self.achouProducoes = 1
 
@@ -773,9 +554,7 @@ class ParserLattes(HTMLParser):
                 self.achouEventos = 1
             if u'Orientações'==dado:
                 self.achouOrientacoes = 1
-            if u'Patentes e registros'== dado:
-                self.achouPatenteRegistro = 1
-                #print "0==>>>>ACHOU PATENTE e REGISTRO"
+
             if u'Outras informações relevantes'==dado:
                 self.achouOutrasInformacoesRelevantes = 1
             self.umaUnidade = 0
@@ -789,38 +568,18 @@ class ParserLattes(HTMLParser):
             if u'Endereço Profissional'==dado:
                 self.achouEnderecoProfissional = 1
 
-        if self.achouPatenteRegistro:
-            if u'Patente'==dado:
-                self.salvarItem = 1
-                self.achouPatente = 1
-                self.achouProgramaComputador = 0
-                self.achouDesenhoIndustrial = 0
-                #print "1==>>>>ACHOU PATENTE e REGISTRO"
-            if u'Programa de computador'==dado:
-                self.salvarItem = 1
-                self.achouPatente = 0
-                self.achouProgramaComputador = 1
-                self.achouDesenhoIndustrial = 0
-                #print "2==>>>>ACHOU PATENTE e REGISTRO"
-            if u'Desenho industrial'==dado:
-                self.salvarItem = 1
-                self.achouPatente = 0
-                self.achouProgramaComputador = 0
-                self.achouDesenhoIndustrial = 1
+
 
         if self.achouProducoes:
             if u'Produção bibliográfica'==dado:
                 self.achouProducaoEmCTA = 1
-                self.achouProducaoTecnica = 0
             if u'Produção técnica'==dado:
                 self.achouProducaoEmCTA = 0
-                self.achouProducaoTecnica = 1
 
 
             if u'Demais trabalhos'==dado:
                 self.salvarItem = 0
                 self.achouProducaoEmCTA = 0
-                self.achouProducaoTecnica = 0
 
 
             if self.achouProducaoEmCTA:
@@ -947,64 +706,6 @@ class ParserLattes(HTMLParser):
                     self.achouOutroTipoDeProducaoBibliografica = 1
 
 
-            if self.achouProducaoTecnica:
-                #if u'Softwares com registro de patente'==dado:
-                if u'Programas de computador com registro de patente'==dado:
-                    self.salvarItem = 1
-                    self.achouSoftwareComPatente = 1
-                    self.achouSoftwareSemPatente = 0
-                    self.achouProdutoTecnologico = 0
-                    self.achouProcessoOuTecnica = 0
-                    self.achouTrabalhoTecnico = 0
-                    self.achouOutroTipoDeProducaoTecnica = 0
-                if u'Programas de computador sem registro de patente'==dado:
-                    self.salvarItem = 1
-                    self.achouSoftwareComPatente = 0
-                    self.achouSoftwareSemPatente = 1
-                    self.achouProdutoTecnologico = 0
-                    self.achouProcessoOuTecnica = 0
-                    self.achouTrabalhoTecnico = 0
-                    self.achouOutroTipoDeProducaoTecnica = 0
-                if u'Produtos tecnológicos'==dado:
-                    self.salvarItem = 1
-                    self.achouSoftwareComPatente = 0
-                    self.achouSoftwareSemPatente = 0
-                    self.achouProdutoTecnologico = 1
-                    self.achouProcessoOuTecnica = 0
-                    self.achouTrabalhoTecnico = 0
-                    self.achouOutroTipoDeProducaoTecnica = 0
-                if u'Processos ou técnicas'==dado:
-                    self.salvarItem = 1
-                    self.achouSoftwareComPatente = 0
-                    self.achouSoftwareSemPatente = 0
-                    self.achouProdutoTecnologico = 0
-                    self.achouProcessoOuTecnica = 1
-                    self.achouTrabalhoTecnico = 0
-                    self.achouOutroTipoDeProducaoTecnica = 0
-                if u'Trabalhos técnicos'==dado:
-                    self.salvarItem = 1
-                    self.achouSoftwareComPatente = 0
-                    self.achouSoftwareSemPatente = 0
-                    self.achouProdutoTecnologico = 0
-                    self.achouProcessoOuTecnica = 0
-                    self.achouTrabalhoTecnico = 1
-                    self.achouOutroTipoDeProducaoTecnica = 0
-                if u'Demais tipos de produção técnica'==dado:
-                    self.salvarItem = 1
-                    self.achouSoftwareComPatente = 0
-                    self.achouSoftwareSemPatente = 0
-                    self.achouProdutoTecnologico = 0
-                    self.achouProcessoOuTecnica = 0
-                    self.achouTrabalhoTecnico = 0
-                    self.achouOutroTipoDeProducaoTecnica = 1
-                #if u'Demais trabalhos'==dado:
-                #	self.salvarItem = 0
-                #	self.achouSoftwareComPatente = 0
-                #	self.achouSoftwareSemPatente = 0
-                #	self.achouProdutoTecnologico = 0
-                #	self.achouProcessoOuTecnica = 0
-                #	self.achouTrabalhoTecnico = 0
-                #	self.achouOutroTipoDeProducaoTecnica = 0
 
 
         if self.achouBancas:
@@ -1021,78 +722,8 @@ class ParserLattes(HTMLParser):
                 self.achouParticipacaoEmEvento  = 0
                 self.achouOrganizacaoDeEvento = 1
 
-        if self.achouOrientacoes:
-            if u'Orientações e supervisões em andamento'==dado:
-                self.achouOrientacoesEmAndamento  = 1
-                self.achouOrientacoesConcluidas = 0
-            if u'Orientações e supervisões concluídas'==dado:
-                self.achouOrientacoesEmAndamento  = 0
-                self.achouOrientacoesConcluidas = 1
 
-            # Tipos de orientações (em andamento ou concluídas)
-            if u'Supervisão de pós-doutorado'==dado:
-                self.salvarItem = 1
-                self.achouSupervisaoDePosDoutorado = 1
-                self.achouTeseDeDoutorado = 0
-                self.achouDissertacaoDeMestrado = 0
-                self.achouMonografiaDeEspecializacao = 0
-                self.achouTCC = 0
-                self.achouIniciacaoCientifica = 0
-                self.achouOutroTipoDeOrientacao = 0
-            if u'Tese de doutorado'==dado:
-                self.salvarItem = 1
-                self.achouSupervisaoDePosDoutorado = 0
-                self.achouTeseDeDoutorado = 1
-                self.achouDissertacaoDeMestrado = 0
-                self.achouMonografiaDeEspecializacao = 0
-                self.achouTCC = 0
-                self.achouIniciacaoCientifica = 0
-                self.achouOutroTipoDeOrientacao = 0
-            if u'Dissertação de mestrado'==dado:
-                self.salvarItem = 1
-                self.achouSupervisaoDePosDoutorado = 0
-                self.achouTeseDeDoutorado = 0
-                self.achouDissertacaoDeMestrado = 1
-                self.achouMonografiaDeEspecializacao = 0
-                self.achouTCC = 0
-                self.achouIniciacaoCientifica = 0
-                self.achouOutroTipoDeOrientacao = 0
-            if u'Monografia de conclusão de curso de aperfeiçoamento/especialização'==dado:
-                self.salvarItem = 1
-                self.achouSupervisaoDePosDoutorado = 0
-                self.achouTeseDeDoutorado = 0
-                self.achouDissertacaoDeMestrado = 0
-                self.achouMonografiaDeEspecializacao = 1
-                self.achouTCC = 0
-                self.achouIniciacaoCientifica = 0
-                self.achouOutroTipoDeOrientacao = 0
-            if u'Trabalho de conclusão de curso de graduação'==dado:
-                self.salvarItem = 1
-                self.achouSupervisaoDePosDoutorado = 0
-                self.achouTeseDeDoutorado = 0
-                self.achouDissertacaoDeMestrado = 0
-                self.achouMonografiaDeEspecializacao = 0
-                self.achouTCC = 1
-                self.achouIniciacaoCientifica = 0
-                self.achouOutroTipoDeOrientacao = 0
-            if u'Iniciação científica' in dado or u'Iniciação Científica'==dado:
-                self.salvarItem = 1
-                self.achouSupervisaoDePosDoutorado = 0
-                self.achouTeseDeDoutorado = 0
-                self.achouDissertacaoDeMestrado = 0
-                self.achouMonografiaDeEspecializacao = 0
-                self.achouTCC = 0
-                self.achouIniciacaoCientifica = 1
-                self.achouOutroTipoDeOrientacao = 0
-            if u'Orientações de outra natureza'==dado:
-                self.salvarItem = 1
-                self.achouSupervisaoDePosDoutorado = 0
-                self.achouTeseDeDoutorado = 0
-                self.achouDissertacaoDeMestrado = 0
-                self.achouMonografiaDeEspecializacao = 0
-                self.achouTCC = 0
-                self.achouIniciacaoCientifica = 0
-                self.achouOutroTipoDeOrientacao = 1
+
 
 
         if self.achouOutrasInformacoesRelevantes:
@@ -1103,10 +734,6 @@ class ParserLattes(HTMLParser):
           if len(id) > 0:
             self.identificador16 = id[0]
 
-        if self.achouProjetoDePesquisa:
-            if u'Projeto certificado pelo(a) coordenador(a)' in dado or u'Projeto certificado pela empresa' in dado:
-                self.item = ''
-                self.salvarParte3 = 0
 
 
 

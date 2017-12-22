@@ -63,10 +63,9 @@ class Membro:
     diretorioCache = ''  # diretorio de armazento de CVs (útil para extensas listas de CVs)
 
     listaFormacaoAcademica = []
-    listaProjetoDePesquisa = []
     listaAreaDeAtuacao = []
     listaIdioma = []
-    listaPremioOuTitulo = []
+
 
     listaIDLattesColaboradores = []
     listaIDLattesColaboradoresUnica = []
@@ -83,37 +82,7 @@ class Membro:
     listaApresentacaoDeTrabalho = []
     listaOutroTipoDeProducaoBibliografica = []
 
-    # Produção técnica
-    listaSoftwareComPatente = []
-    listaSoftwareSemPatente = []
-    listaProdutoTecnologico = []
-    listaProcessoOuTecnica = []
-    listaTrabalhoTecnico = []
-    listaOutroTipoDeProducaoTecnica = []
 
-    # Patentes e registros
-    listaPatente = []
-    listaProgramaComputador = []
-    listaDesenhoIndustrial = []
-
-
-    # Orientações em andamento
-    listaOASupervisaoDePosDoutorado = []
-    listaOATeseDeDoutorado = []
-    listaOADissertacaoDeMestrado = []
-    listaOAMonografiaDeEspecializacao = []
-    listaOATCC = []
-    listaOAIniciacaoCientifica = []
-    listaOAOutroTipoDeOrientacao = []
-
-    # Orientações concluídas
-    listaOCSupervisaoDePosDoutorado = []
-    listaOCTeseDeDoutorado = []
-    listaOCDissertacaoDeMestrado = []
-    listaOCMonografiaDeEspecializacao = []
-    listaOCTCC = []
-    listaOCIniciacaoCientifica = []
-    listaOCOutroTipoDeOrientacao = []
 
     # Qualis
     # tabelaQualisDosAnos = [{}]
@@ -247,10 +216,8 @@ class Membro:
 
         self.listaIDLattesColaboradores = parser.listaIDLattesColaboradores
         self.listaFormacaoAcademica = parser.listaFormacaoAcademica
-        self.listaProjetoDePesquisa = parser.listaProjetoDePesquisa
         self.listaAreaDeAtuacao = parser.listaAreaDeAtuacao
         self.listaIdioma = parser.listaIdioma
-        self.listaPremioOuTitulo = parser.listaPremioOuTitulo
         self.listaIDLattesColaboradoresUnica = sets.Set(self.listaIDLattesColaboradores)
 
         # Produção bibliográfica
@@ -265,37 +232,8 @@ class Membro:
         self.listaApresentacaoDeTrabalho = parser.listaApresentacaoDeTrabalho
         self.listaOutroTipoDeProducaoBibliografica = parser.listaOutroTipoDeProducaoBibliografica
 
-        # Produção técnica
-        self.listaSoftwareComPatente = parser.listaSoftwareComPatente
-        self.listaSoftwareSemPatente = parser.listaSoftwareSemPatente
-        self.listaProdutoTecnologico = parser.listaProdutoTecnologico
-        self.listaProcessoOuTecnica = parser.listaProcessoOuTecnica
-        self.listaTrabalhoTecnico = parser.listaTrabalhoTecnico
-        self.listaOutroTipoDeProducaoTecnica = parser.listaOutroTipoDeProducaoTecnica
-
-        # Patentes e registros
-        self.listaPatente = parser.listaPatente
-        self.listaProgramaComputador = parser.listaProgramaComputador
-        self.listaDesenhoIndustrial = parser.listaDesenhoIndustrial
 
 
-        # Orientações em andamento
-        self.listaOASupervisaoDePosDoutorado = parser.listaOASupervisaoDePosDoutorado
-        self.listaOATeseDeDoutorado = parser.listaOATeseDeDoutorado
-        self.listaOADissertacaoDeMestrado = parser.listaOADissertacaoDeMestrado
-        self.listaOAMonografiaDeEspecializacao = parser.listaOAMonografiaDeEspecializacao
-        self.listaOATCC = parser.listaOATCC
-        self.listaOAIniciacaoCientifica = parser.listaOAIniciacaoCientifica
-        self.listaOAOutroTipoDeOrientacao = parser.listaOAOutroTipoDeOrientacao
-
-        # Orientações concluídas
-        self.listaOCSupervisaoDePosDoutorado = parser.listaOCSupervisaoDePosDoutorado
-        self.listaOCTeseDeDoutorado = parser.listaOCTeseDeDoutorado
-        self.listaOCDissertacaoDeMestrado = parser.listaOCDissertacaoDeMestrado
-        self.listaOCMonografiaDeEspecializacao = parser.listaOCMonografiaDeEspecializacao
-        self.listaOCTCC = parser.listaOCTCC
-        self.listaOCIniciacaoCientifica = parser.listaOCIniciacaoCientifica
-        self.listaOCOutroTipoDeOrientacao = parser.listaOCOutroTipoDeOrientacao
 
         # Eventos
         self.listaParticipacaoEmEvento = parser.listaParticipacaoEmEvento
@@ -342,102 +280,28 @@ class Membro:
         self.listaApresentacaoDeTrabalho = self.filtrarItems(self.listaApresentacaoDeTrabalho)
         self.listaOutroTipoDeProducaoBibliografica = self.filtrarItems(self.listaOutroTipoDeProducaoBibliografica)
 
-        self.listaSoftwareComPatente = self.filtrarItems(self.listaSoftwareComPatente)
-        self.listaSoftwareSemPatente = self.filtrarItems(self.listaSoftwareSemPatente)
-        self.listaProdutoTecnologico = self.filtrarItems(self.listaProdutoTecnologico)
-        self.listaProcessoOuTecnica = self.filtrarItems(self.listaProcessoOuTecnica)
-        self.listaTrabalhoTecnico = self.filtrarItems(self.listaTrabalhoTecnico)
-        self.listaOutroTipoDeProducaoTecnica = self.filtrarItems(self.listaOutroTipoDeProducaoTecnica)
-
-        self.listaPatente = self.filtrarItems(self.listaPatente)
-        self.listaProgramaComputador = self.filtrarItems(self.listaProgramaComputador)
-        self.listaDesenhoIndustrial = self.filtrarItems(self.listaDesenhoIndustrial)
-
-
-        self.listaOASupervisaoDePosDoutorado = self.filtrarItems(self.listaOASupervisaoDePosDoutorado)
-        self.listaOATeseDeDoutorado = self.filtrarItems(self.listaOATeseDeDoutorado)
-        self.listaOADissertacaoDeMestrado = self.filtrarItems(self.listaOADissertacaoDeMestrado)
-        self.listaOAMonografiaDeEspecializacao = self.filtrarItems(self.listaOAMonografiaDeEspecializacao)
-        self.listaOATCC = self.filtrarItems(self.listaOATCC)
-        self.listaOAIniciacaoCientifica = self.filtrarItems(self.listaOAIniciacaoCientifica)
-        self.listaOAOutroTipoDeOrientacao = self.filtrarItems(self.listaOAOutroTipoDeOrientacao)
-
-        self.listaOCSupervisaoDePosDoutorado = self.filtrarItems(self.listaOCSupervisaoDePosDoutorado)
-        self.listaOCTeseDeDoutorado = self.filtrarItems(self.listaOCTeseDeDoutorado)
-        self.listaOCDissertacaoDeMestrado = self.filtrarItems(self.listaOCDissertacaoDeMestrado)
-        self.listaOCMonografiaDeEspecializacao = self.filtrarItems(self.listaOCMonografiaDeEspecializacao)
-        self.listaOCTCC = self.filtrarItems(self.listaOCTCC)
-        self.listaOCIniciacaoCientifica = self.filtrarItems(self.listaOCIniciacaoCientifica)
-        self.listaOCOutroTipoDeOrientacao = self.filtrarItems(self.listaOCOutroTipoDeOrientacao)
-
-        self.listaPremioOuTitulo = self.filtrarItems(self.listaPremioOuTitulo)
-        self.listaProjetoDePesquisa = self.filtrarItems(self.listaProjetoDePesquisa)
-
         self.listaParticipacaoEmEvento = self.filtrarItems(self.listaParticipacaoEmEvento)
         self.listaOrganizacaoDeEvento = self.filtrarItems(self.listaOrganizacaoDeEvento)
 
-
+    def estaDentroDoPeriodo(self, objeto):
+        if not objeto.ano.isdigit():  # se nao for identificado o ano sempre o mostramos na lista
+            objeto.ano = 0
+            return 1
+        else:
+            objeto.ano = int(objeto.ano)
+            if self.itemsDesdeOAno > objeto.ano or objeto.ano > self.itemsAteOAno:
+                return 0
+            else:
+                retorno = 0
+                for per in self.listaPeriodo:
+                    if per[0] <= objeto.ano and objeto.ano <= per[1]:
+                        retorno = 1
+                        break
+                return retorno
+            
     def filtrarItems(self, lista):
         return filter(self.estaDentroDoPeriodo, lista)
 
-        # Not pythonic
-        # for i in range(0, len(lista)):
-        #     if not self.estaDentroDoPeriodo(lista[i]):
-        #         lista[i] = None
-        # lista = [l for l in lista if l is not None] # Eliminamos os elementos' None'
-        #
-        # # ORDENAR A LISTA POR ANO? QUE TAL? rpta. Nao necessário!
-        # return lista
-
-
-    def estaDentroDoPeriodo(self, objeto):
-        if objeto.__module__ == 'orientacaoEmAndamento':
-            objeto.ano = int(objeto.ano) if objeto.ano else 0  # Caso
-            if objeto.ano > self.itemsAteOAno:
-                return 0
-            else:
-                return 1
-
-        elif objeto.__module__ == 'projetoDePesquisa':
-            if objeto.anoConclusao.lower() == 'atual':
-                objeto.anoConclusao = str(datetime.datetime.now().year)
-
-            if objeto.anoInicio == '':  # Para projetos de pesquisa sem anos! (sim... tem gente que não coloca os anos!)
-                objeto.anoInicio = '0'
-            if objeto.anoConclusao == '':
-                objeto.anoConclusao = '0'
-
-            objeto.anoInicio = int(objeto.anoInicio)
-            objeto.anoConclusao = int(objeto.anoConclusao)
-            objeto.ano = objeto.anoInicio  # Para comparação entre projetos
-
-            if objeto.anoInicio > self.itemsAteOAno and objeto.anoConclusao > self.itemsAteOAno or objeto.anoInicio < self.itemsDesdeOAno and objeto.anoConclusao < self.itemsDesdeOAno:
-                return 0
-            else:
-                fora = 0
-                for per in self.listaPeriodo:
-                    if objeto.anoInicio > per[1] and objeto.anoConclusao > per[1] or objeto.anoInicio < per[0] and objeto.anoConclusao < per[0]:
-                        fora += 1
-                if fora == len(self.listaPeriodo):
-                    return 0
-                else:
-                    return 1
-
-        else:
-            if not objeto.ano.isdigit():  # se nao for identificado o ano sempre o mostramos na lista
-                objeto.ano = 0
-                return 1
-            else:
-                objeto.ano = int(objeto.ano)
-                if self.itemsDesdeOAno > objeto.ano or objeto.ano > self.itemsAteOAno:
-                    return 0
-                else:
-                    retorno = 0
-                    for per in self.listaPeriodo:
-                        if per[0] <= objeto.ano and objeto.ano <= per[1]:
-                            retorno = 1
-                            break
-                    return retorno
 
 
 
@@ -508,33 +372,6 @@ class Membro:
             s += "\n- Artigos aceitos para publicação             : " + str(len(self.listaArtigoAceito))
             s += "\n- Apresentações de Trabalho                   : " + str(len(self.listaApresentacaoDeTrabalho))
             s += "\n- Demais tipos de produção bibliográfica      : " + str(len(self.listaOutroTipoDeProducaoBibliografica))
-            s += "\n- Softwares com registro de patente           : " + str(len(self.listaSoftwareComPatente))
-            s += "\n- Softwares sem registro de patente           : " + str(len(self.listaSoftwareSemPatente))
-            s += "\n- Produtos tecnológicos                       : " + str(len(self.listaProdutoTecnologico))
-            s += "\n- Processos ou técnicas                       : " + str(len(self.listaProcessoOuTecnica))
-            s += "\n- Trabalhos técnicos                          : " + str(len(self.listaTrabalhoTecnico))
-            s += "\n- Demais tipos de produção técnica            : " + str(len(self.listaOutroTipoDeProducaoTecnica))
-            s += "\n- Patente                                     : " + str(len(self.listaPatente))
-            s += "\n- Programa de computador                      : " + str(len(self.listaProgramaComputador))
-            s += "\n- Desenho industrial                          : " + str(len(self.listaDesenhoIndustrial))
-            s += "\n- Orientações em andamento"
-            s += "\n  . Supervições de pos doutorado              : " + str(len(self.listaOASupervisaoDePosDoutorado))
-            s += "\n  . Tese de doutorado                         : " + str(len(self.listaOATeseDeDoutorado))
-            s += "\n  . Dissertações de mestrado                  : " + str(len(self.listaOADissertacaoDeMestrado))
-            s += "\n  . Monografías de especialização             : " + str(len(self.listaOAMonografiaDeEspecializacao))
-            s += "\n  . TCC                                       : " + str(len(self.listaOATCC))
-            s += "\n  . Iniciação científica                      : " + str(len(self.listaOAIniciacaoCientifica))
-            s += "\n  . Orientações de outra natureza             : " + str(len(self.listaOAOutroTipoDeOrientacao))
-            s += "\n- Orientações concluídas"
-            s += "\n  . Supervições de pos doutorado              : " + str(len(self.listaOCSupervisaoDePosDoutorado))
-            s += "\n  . Tese de doutorado                         : " + str(len(self.listaOCTeseDeDoutorado))
-            s += "\n  . Dissertações de mestrado                  : " + str(len(self.listaOCDissertacaoDeMestrado))
-            s += "\n  . Monografías de especialização             : " + str(len(self.listaOCMonografiaDeEspecializacao))
-            s += "\n  . TCC                                       : " + str(len(self.listaOCTCC))
-            s += "\n  . Iniciação científica                      : " + str(len(self.listaOCIniciacaoCientifica))
-            s += "\n  . Orientações de outra natureza             : " + str(len(self.listaOCOutroTipoDeOrientacao))
-            s += "\n- Projetos de pesquisa                        : " + str(len(self.listaProjetoDePesquisa))
-            s += "\n- Prêmios e títulos                           : " + str(len(self.listaPremioOuTitulo))
             s += "\n- Participação em eventos                     : " + str(len(self.listaParticipacaoEmEvento))
             s += "\n- Organização de eventos                      : " + str(len(self.listaOrganizacaoDeEvento))
             s += "\n\n"
