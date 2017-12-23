@@ -59,18 +59,9 @@ class GeradorDeXML:
                 xmlTemp += self.getAreaDeAtuacao(registro)
                 xmlTemp += self.getListaColaborares(registro)
                 xmlTemp += self.getListaArtigosEmPeriodicos(registro)
-                xmlTemp += self.getListaLivroPublicado(registro)
-                xmlTemp += self.getListaCapituloDeLivroPublicado(registro)
-                xmlTemp += self.getListaTextoEmJornalDeNoticia(registro)
                 xmlTemp += self.getListaTrabalhoCompletoEmCongresso(registro)
                 xmlTemp += self.getListaResumoExpandidoEmCongresso(registro)
                 xmlTemp += self.getListaResumoEmCongresso(registro)
-                xmlTemp += self.getListaArtigoAceito(registro)
-                xmlTemp += self.getListaApresentacaoDeTrabalho(registro)
-                xmlTemp += self.getListaOutroTipoDeProducaoBibliografica(registro)
-
-                xmlTemp += self.getListaParticipacaoEmEvento(registro)
-                xmlTemp += self.getListaOrganizacaoDeEvento(registro)
 
                 xmlTemp += '  </pesquisador>\n'
             except:
@@ -133,54 +124,6 @@ class GeradorDeXML:
 
 
 
-    def getListaOutroTipoDeProducaoBibliografica(self, registro):
-        xmlTemp = ''
-        if registro.listaOutroTipoDeProducaoBibliografica:
-            xmlTemp += '    <producao_bibliografica>\n'
-            for producao in registro.listaOutroTipoDeProducaoBibliografica:
-                xmlTemp += '        <producao>\n'
-                xmlTemp += '          <titulo>' + producao.titulo + '</titulo>\n'
-                xmlTemp += '          <autores>' + producao.autores + '</autores>\n'
-                xmlTemp += '          <ano>' + str(producao.ano) + '</ano>\n'
-                xmlTemp += '          <natureza>' + producao.natureza + '</natureza>\n'
-                xmlTemp += '        </producao>\n'
-            xmlTemp += '    </producao_bibliografica>\n'
-        return xmlTemp
-
-
-    def getListaApresentacaoDeTrabalho(self, registro):
-        xmlTemp = ''
-        if registro.listaApresentacaoDeTrabalho:
-            xmlTemp += '    <apresentacao_trabalho>\n'
-            for apresentacao in registro.listaApresentacaoDeTrabalho:
-                xmlTemp += '        <trabalho_apresentado>\n'
-                xmlTemp += '          <titulo>' + apresentacao.titulo + '</titulo>\n'
-                xmlTemp += '          <autores>' + apresentacao.autores + '</autores>\n'
-                xmlTemp += '          <ano>' + str(apresentacao.ano) + '</ano>\n'
-                xmlTemp += '          <natureza>' + apresentacao.natureza + '</natureza>\n'
-                xmlTemp += '        </trabalho_apresentado>\n'
-            xmlTemp += '    </apresentacao_trabalho>\n'
-        return xmlTemp
-
-
-    def getListaArtigoAceito(self, registro):
-        xmlTemp = ''
-        if registro.listaArtigoAceito:
-            xmlTemp += '    <artigos_em_revista>\n'
-            for artigo in registro.listaArtigoAceito:
-                xmlTemp += '        <artigo_revista>\n'
-                xmlTemp += '          <doi>' + artigo.doi + '</doi>\n'
-                xmlTemp += '          <autores>' + artigo.autores + '</autores>\n'
-                xmlTemp += '          <titulo>' + artigo.titulo + '</titulo>\n'
-                xmlTemp += '          <revista>' + artigo.revista + '</revista>\n'
-                xmlTemp += '          <ano>' + str(artigo.ano) + '</ano>\n'
-                xmlTemp += '          <volume>' + artigo.volume + '</volume>\n'
-                xmlTemp += '          <paginas>' + artigo.paginas + '</paginas>\n'
-                xmlTemp += '          <numero>' + artigo.numero + '</numero>\n'
-                xmlTemp += '        </artigo_revista>\n'
-            xmlTemp += '    </artigos_em_revista>\n'
-
-        return xmlTemp
 
     def getListaResumoEmCongresso(self, registro):
         xmlTemp = ''
@@ -235,57 +178,7 @@ class GeradorDeXML:
             xmlTemp += '    </trabalho_completo_congresso>\n'
         return xmlTemp
 
-    def getListaTextoEmJornalDeNoticia(self, registro):
-        xmlTemp = ''
-        if registro.listaTextoEmJornalDeNoticia:
-            xmlTemp += '    <texto_em_jornal>\n'
-            for texto_jornal in registro.listaTextoEmJornalDeNoticia:
-                xmlTemp += '        <texto>\n'
-                xmlTemp += '          <ano>' + str(texto_jornal.ano) + '</ano>\n'
-                xmlTemp += '          <autores>' + texto_jornal.autores + '</autores>\n'
-                xmlTemp += '          <titulo>' + texto_jornal.titulo + '</titulo>\n'
-                xmlTemp += '          <nome_jornal>' + texto_jornal.nomeJornal + '</nome_jornal>\n'
-                xmlTemp += '          <data>' + texto_jornal.data + '</data>\n'
-                xmlTemp += '          <volume>' + texto_jornal.volume + '</volume>\n'
-                xmlTemp += '          <paginas>' + texto_jornal.paginas + '</paginas>\n'
-                xmlTemp += '        </texto>\n'
-            xmlTemp += '    </texto_em_jornal>\n'
-        return xmlTemp
 
-    def getListaCapituloDeLivroPublicado(self, registro):
-        xmlTemp = ''
-        if registro.listaCapituloDeLivroPublicado:
-            xmlTemp += '    <capitulos_livros>\n'
-            for capitulo in registro.listaCapituloDeLivroPublicado:
-                xmlTemp += '        <capitulo>\n'
-                xmlTemp += '          <livro>' + capitulo.livro + '</livro>\n'
-                xmlTemp += '          <titulo>' + capitulo.titulo + '</titulo>\n'
-                xmlTemp += '          <autores>' + capitulo.autores + '</autores>\n'
-                xmlTemp += '          <edicao>' + capitulo.edicao + '</edicao>\n'
-                xmlTemp += '          <editora>' + capitulo.editora + '</editora>\n'
-                xmlTemp += '          <volume>' + capitulo.volume + '</volume>\n'
-                xmlTemp += '          <paginas>' + capitulo.paginas + '</paginas>\n'
-                xmlTemp += '          <ano>' + str(capitulo.ano) + '</ano>\n'
-                xmlTemp += '        </capitulo>\n'
-            xmlTemp += '    </capitulos_livros>\n'
-        return xmlTemp
-
-
-    def getListaLivroPublicado(self, registro):
-        xmlTemp = ''
-        if registro.listaLivroPublicado:
-            xmlTemp += '    <livros_publicados>\n'
-            for livro_publicado in registro.listaLivroPublicado:
-                xmlTemp += '        <livro>\n'
-                xmlTemp += '          <autores>' + livro_publicado.autores + '</autores>\n'
-                xmlTemp += '          <titulo>' + livro_publicado.titulo + '</titulo>\n'
-                xmlTemp += '          <edicao>' + livro_publicado.edicao + '</edicao>\n'
-                xmlTemp += '          <volume>' + livro_publicado.volume + '</volume>\n'
-                xmlTemp += '          <paginas>' + livro_publicado.paginas + '</paginas>\n'
-                xmlTemp += '          <ano>' + str(livro_publicado.ano) + '</ano>\n'
-                xmlTemp += '        </livro>\n'
-            xmlTemp += '    </livros_publicados>\n'
-        return xmlTemp
 
 
     def getListaArtigosEmPeriodicos(self, registro):

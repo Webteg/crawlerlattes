@@ -1,26 +1,5 @@
 #!/usr/bin/python
-# encoding: utf-8
-# filename: parserLattes.py
-#
-# scriptLattes V8
-# Copyright 2005-2013: Jesús P. Mena-Chalco e Roberto M. Cesar-Jr.
-#  http://scriptlattes.sourceforge.net/
-#
-#
-#  Este programa é um software livre; você pode redistribui-lo e/ou
-#  modifica-lo dentro dos termos da Licença Pública Geral GNU como
-#  publicada pela Fundação do Software Livre (FSF); na versão 2 da
-#  Licença, ou (na sua opinião) qualquer versão.
-#
-#  Este programa é distribuído na esperança que possa ser util,
-#  mas SEM NENHUMA GARANTIA; sem uma garantia implicita de ADEQUAÇÂO a qualquer
-#  MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
-#  Licença Pública Geral GNU para maiores detalhes.
-#
-#  Você deve ter recebido uma cópia da Licença Pública Geral GNU
-#  junto com este programa, se não, escreva para a Fundação do Software
-#  Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#
+#  encoding: utf-8
 
 import sys
 from htmlentitydefs import name2codepoint
@@ -33,15 +12,9 @@ from producoesUnitarias.formacaoAcademica import *
 from producoesUnitarias.areaDeAtuacao import *
 from producoesUnitarias.idioma import *
 from producoesBibliograficas.artigoEmPeriodico import *
-from producoesBibliograficas.livroPublicado import *
-from producoesBibliograficas.capituloDeLivroPublicado import *
-from producoesBibliograficas.textoEmJornalDeNoticia import *
 from producoesBibliograficas.trabalhoCompletoEmCongresso import *
 from producoesBibliograficas.resumoExpandidoEmCongresso import *
 from producoesBibliograficas.resumoEmCongresso import *
-from producoesBibliograficas.artigoAceito import *
-from producoesBibliograficas.apresentacaoDeTrabalho import *
-from producoesBibliograficas.outroTipoDeProducaoBibliografica import *
 
 
 sys.tracebacklimit = 0
@@ -192,12 +165,6 @@ class ParserLattes(HTMLParser):
 
         # feed it!
         cvLattesHTML, errors = tidy_document(cvLattesHTML, options={'numeric-entities':1})
-        #print errors
-        #print cvLattesHTML.encode("utf8")
-
-        ## tentativa errada (não previsível)
-        # options = dict(output_xhtml=1, add_xml_decl=1, indent=1, tidy_mark=0)
-        # cvLattesHTML = str(tidy.parseString(cvLattesHTML, **options)).decode("utf8")
 
         self.feed(cvLattesHTML)
 
@@ -360,7 +327,7 @@ class ParserLattes(HTMLParser):
 
     # ------------------------------------------------------------------------ #
     def handle_endtag(self, tag):
-        # Informações do pesquisador (pre-cabecalho)
+
         if tag=='h2':
             if self.salvarNome:
                 self.nomeCompleto = stripBlanks(self.item)
@@ -383,7 +350,7 @@ class ParserLattes(HTMLParser):
             self.identificador16 = re.findall(u'http://lattes.cnpq.br/(\d{16})', value)
             self.salvarIdentificador16 = 0
 
-        # Cabeçalhos
+
         if tag=='h1' and self.procurarCabecalho:
             self.procurarCabecalho = 0
 
@@ -414,19 +381,19 @@ class ParserLattes(HTMLParser):
                     self.salvarParte2 = 0
 
                     if self.achouFormacaoAcademica and len(self.partesDoItem)>=2:
-                        iessimaFormacaoAcademica = FormacaoAcademica(self.partesDoItem) # criamos um objeto com a lista correspondentes às celulas da linha
-                        self.listaFormacaoAcademica.append(iessimaFormacaoAcademica) # acrescentamos o objeto de FormacaoAcademica
+                        iessimaFormacaoAcademica = FormacaoAcademica(self.partesDoItem)
+                        self.listaFormacaoAcademica.append(iessimaFormacaoAcademica)
 
                     #if self.achouAtuacaoProfissional:
                     #	print self.partesDoItem
 
 
                     if self.achouAreaDeAtuacao and len(self.partesDoItem)>=2:
-                        iessimaAreaDeAtucao = AreaDeAtuacao(self.partesDoItem) # criamos um objeto com a lista correspondentes às celulas da linha
+                        iessimaAreaDeAtucao = AreaDeAtuacao(self.partesDoItem)
                         self.listaAreaDeAtuacao.append(iessimaAreaDeAtucao) # acrescentamos o objeto de AreaDeAtuacao
 
                     if self.achouIdioma and len(self.partesDoItem)>=2:
-                        iessimoIdioma = Idioma(self.partesDoItem) # criamos um objeto com a lista correspondentes às celulas da linha
+                        iessimoIdioma = Idioma(self.partesDoItem)
                         self.listaIdioma.append(iessimoIdioma) # acrescentamos o objeto de Idioma
 
 
@@ -510,8 +477,8 @@ class ParserLattes(HTMLParser):
         dado = stripBlanks(dado)
 
         if self.salvarAtualizacaoCV:
-            data = re.findall(u'Última atualização do currículo em (\d{2}/\d{2}/\d{4})', dado)
-            if len(data)>0: # se a data de atualizacao do CV for identificada
+            data = re.findall(u'Ultima atualizacao do curriculo em (\d{2}/\d{2}/\d{4})', dado)
+            if len(data)>0:
                 self.atualizacaoCV = stripBlanks(data[0])
                 self.salvarAtualizacaoCV = 0
 

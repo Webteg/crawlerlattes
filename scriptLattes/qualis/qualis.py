@@ -1,26 +1,6 @@
 #!/usr/bin/python
 # encoding: utf-8
-#
-#
-# scriptLattes V8
-# http://scriptlattes.sourceforge.net/
-# Pacote desenvolvido por Helena Caseli
-#
-# Este programa é um software livre; você pode redistribui-lo e/ou 
-# modifica-lo dentro dos termos da Licença Pública Geral GNU como 
-# publicada pela Fundação do Software Livre (FSF); na versão 2 da 
-# Licença, ou (na sua opinião) qualquer versão.
-#
-# Este programa é distribuído na esperança que possa ser util, 
-# mas SEM NENHUMA GARANTIA; sem uma garantia implicita de ADEQUAÇÂO a qualquer
-# MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
-# Licença Pública Geral GNU para maiores detalhes.
-#
-# Você deve ter recebido uma cópia da Licença Pública Geral GNU
-# junto com este programa, se não, escreva para a Fundação do Software
-# Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#
-#
+
 
 import logging
 import re
@@ -37,13 +17,13 @@ class Qualis:
     qtdPB4     = {}    # Total de trabalhos completos em congressos por Qualis
     qtdPB5     = {}    # Total de resumos expandidos em congressos por Qualis
     qtdPB7     = {}    # Total de artigos aceitos para publicacao por Qualis
-    
+
 
     def __init__(self, grupo):
         if grupo.obterParametro('global-identificar_publicacoes_com_qualis'):
             self.periodicos = self.carregarQualis(grupo.obterParametro('global-arquivo_qualis_de_periodicos'))
             self.congressos = self.carregarQualis(grupo.obterParametro('global-arquivo_qualis_de_congressos'))
-    
+
     def calcularTotaisDosQualis(self, grupo):
         if (not grupo.obterParametro('global-arquivo_qualis_de_periodicos')==''):
             self.qtdPB0 = self.calcularTotaisDosQualisPorTipo(self.qtdPB0, grupo.compilador.listaCompletaArtigoEmPeriodico)
@@ -55,7 +35,7 @@ class Qualis:
     def calcularTotaisDosQualisPorTipo(self, qtd, listaCompleta):
         self.inicializaListaQualis(qtd)
         keys = listaCompleta.keys()
-        if len(keys)>0: 
+        if len(keys)>0:
             for ano in keys:
                 elementos = listaCompleta[ano]
                 for index in range(0, len(elementos)):
@@ -120,7 +100,7 @@ class Qualis:
                     if self.congressos.get(pub.sigla)!=None:
                         qualis = self.congressos.get(pub.sigla) # Retorna Qualis da sigla com nome do evento
                         similar = pub.sigla
-                    else:                
+                    else:
                         qualis = 'Qualis nao identificado'
                         similar = pub.nomeDoEvento
                 pub.qualis = qualis
@@ -180,4 +160,3 @@ class Qualis:
         nome = re.sub("\s+", ' ', nome)
         nome = nome.strip()
         return nome
-

@@ -72,15 +72,10 @@ class Membro:
 
     # Produção bibliográfica
     listaArtigoEmPeriodico = []
-    listaLivroPublicado = []
-    listaCapituloDeLivroPublicado = []
-    listaTextoEmJornalDeNoticia = []
     listaTrabalhoCompletoEmCongresso = []
     listaResumoExpandidoEmCongresso = []
     listaResumoEmCongresso = []
-    listaArtigoAceito = []
-    listaApresentacaoDeTrabalho = []
-    listaOutroTipoDeProducaoBibliografica = []
+
 
 
 

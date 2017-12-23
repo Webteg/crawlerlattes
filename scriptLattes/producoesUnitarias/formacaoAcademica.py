@@ -1,3 +1,8 @@
+#!/usr/bin/python
+# encoding: utf-8
+
+
+
 class FormacaoAcademica:
 	anoInicio = None
 	anoConclusao = None

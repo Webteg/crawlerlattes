@@ -35,7 +35,6 @@ from membro import Membro
 from compiladorDeListas import CompiladorDeListas
 from authorRank import AuthorRank
 from geradorDePaginasWeb import GeradorDePaginasWeb
-from charts.grafoDeColaboracoes import *
 from qualis.qualis import *
 
 
@@ -55,7 +54,7 @@ class Grupo:
     diretorioDoi = None
 
     matrizArtigoEmPeriodico = None
-    matrizLivroPublicado = None
+
     matrizCapituloDeLivroPublicado = None
     matrizTextoEmJornalDeNoticia = None
     matrizTrabalhoCompletoEmCongresso = None

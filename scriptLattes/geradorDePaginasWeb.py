@@ -1,25 +1,6 @@
 #!/usr/bin/python
 # encoding: utf-8
-#
-#
-# scriptLattes
-# http://scriptlattes.sourceforge.net/
-#
-# Este programa é um software livre; você pode redistribui-lo e/ou
-# modifica-lo dentro dos termos da Licença Pública Geral GNU como
-# publicada pela Fundação do Software Livre (FSF); na versão 2 da
-# Licença, ou (na sua opinião) qualquer versão.
-#
-# Este programa é distribuído na esperança que possa ser util,
-# mas SEM NENHUMA GARANTIA; sem uma garantia implicita de ADEQUAÇÂO a qualquer
-# MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
-# Licença Pública Geral GNU para maiores detalhes.
-#
-# Você deve ter recebido uma cópia da Licença Pública Geral GNU
-# junto com este programa, se não, escreva para a Fundação do Software
-# Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#
-#
+
 from collections import defaultdict
 import datetime
 import os
@@ -117,15 +98,6 @@ class GeradorDePaginasWeb:
         if self.nPB0 > 0:
             s += '<li> <a href="PB0-0' + self.extensaoPagina + '">Artigos completos publicados em periódicos</a> '.decode(
                 "utf8") + '(' + str(self.nPB0) + ')'
-        if self.nPB1 > 0:
-            s += '<li> <a href="PB1-0' + self.extensaoPagina + '">Livros publicados/organizados ou edições</a> '.decode(
-                "utf8") + '(' + str(self.nPB1) + ')'
-        if self.nPB2 > 0:
-            s += '<li> <a href="PB2-0' + self.extensaoPagina + '">Capítulos de livros publicados </a> '.decode(
-                "utf8") + '(' + str(self.nPB2) + ')'
-        if self.nPB3 > 0:
-            s += '<li> <a href="PB3-0' + self.extensaoPagina + '">Textos em jornais de notícias/revistas </a> '.decode(
-                "utf8") + '(' + str(self.nPB3) + ')'
         if self.nPB4 > 0:
             s += '<li> <a href="PB4-0' + self.extensaoPagina + '">Trabalhos completos publicados em anais de congressos </a> '.decode(
                 "utf8") + '(' + str(self.nPB4) + ')'
@@ -135,15 +107,6 @@ class GeradorDePaginasWeb:
         if self.nPB6 > 0:
             s += '<li> <a href="PB6-0' + self.extensaoPagina + '">Resumos publicados em anais de congressos </a> '.decode(
                 "utf8") + '(' + str(self.nPB6) + ')'
-        if self.nPB7 > 0:
-            s += '<li> <a href="PB7-0' + self.extensaoPagina + '">Artigos aceitos para publicação </a> '.decode(
-                "utf8") + '(' + str(self.nPB7) + ')'
-        if self.nPB8 > 0:
-            s += '<li> <a href="PB8-0' + self.extensaoPagina + '">Apresentações de trabalho </a> '.decode(
-                "utf8") + '(' + str(self.nPB8) + ')'
-        if self.nPB9 > 0:
-            s += '<li> <a href="PB9-0' + self.extensaoPagina + '">Demais tipos de produção bibliográfica </a> '.decode(
-                "utf8") + '(' + str(self.nPB9) + ')'
         if self.nPB > 0:
             s += '<li> <a href="PB-0' + self.extensaoPagina + '">Total de produção bibliográfica</a> '.decode(
                 "utf8") + '(' + str(self.nPB) + ')'
@@ -242,29 +205,15 @@ class GeradorDePaginasWeb:
 
     def gerarPaginasDeProducoesBibliograficas(self):
         self.nPB0 = 0
-        self.nPB1 = 0
-        self.nPB2 = 0
-        self.nPB3 = 0
         self.nPB4 = 0
         self.nPB5 = 0
         self.nPB6 = 0
-        self.nPB7 = 0
-        self.nPB8 = 0
-        self.nPB9 = 0
         self.nPB = 0
 
         if self.grupo.obterParametro('relatorio-incluir_artigo_em_periodico'):
             self.nPB0 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaArtigoEmPeriodico,
                                                        "Artigos completos publicados em periódicos", "PB0", ris=True)
-        if self.grupo.obterParametro('relatorio-incluir_livro_publicado'):
-            self.nPB1 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaLivroPublicado,
-                                                       "Livros publicados/organizados ou edições", "PB1", ris=True)
-        if self.grupo.obterParametro('relatorio-incluir_capitulo_de_livro_publicado'):
-            self.nPB2 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaCapituloDeLivroPublicado,
-                                                       "Capítulos de livros publicados", "PB2", ris=True)
-        if self.grupo.obterParametro('relatorio-incluir_texto_em_jornal_de_noticia'):
-            self.nPB3 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaTextoEmJornalDeNoticia,
-                                                       "Textos em jornais de notícias/revistas", "PB3", ris=True)
+
         if self.grupo.obterParametro('relatorio-incluir_trabalho_completo_em_congresso'):
             self.nPB4 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaTrabalhoCompletoEmCongresso,
                                                        "Trabalhos completos publicados em anais de congressos", "PB4",
@@ -276,16 +225,7 @@ class GeradorDePaginasWeb:
         if self.grupo.obterParametro('relatorio-incluir_resumo_em_congresso'):
             self.nPB6 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaResumoEmCongresso,
                                                        "Resumos publicados em anais de congressos", "PB6", ris=True)
-        if self.grupo.obterParametro('relatorio-incluir_artigo_aceito_para_publicacao'):
-            self.nPB7 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaArtigoAceito,
-                                                       "Artigos aceitos para publicação", "PB7")
-        if self.grupo.obterParametro('relatorio-incluir_apresentacao_de_trabalho'):
-            self.nPB8 = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaApresentacaoDeTrabalho,
-                                                       "Apresentações de trabalho", "PB8")
-        if self.grupo.obterParametro('relatorio-incluir_outro_tipo_de_producao_bibliografica'):
-            self.nPB9 = self.gerar_pagina_de_producoes(
-                self.grupo.compilador.listaCompletaOutroTipoDeProducaoBibliografica,
-                "Demais tipos de produção bibliográfica", "PB9")
+
         # Total de produção bibliográfica
         self.nPB = self.gerar_pagina_de_producoes(self.grupo.compilador.listaCompletaPB,
                                                   "Total de produção bibliográfica", "PB")
@@ -707,21 +647,9 @@ class GeradorDePaginasWeb:
                          membro.nomePrimeiraArea,
                          membro.instituicao)
 
-            # <td class="centered"><font size=-1>' + u'Produção com Qualis' + '</font></td> \
-
-            # s += '<tr><td colspan="9"> \
-            #      ' + html_qualis + ' \
-            #      </td></tr>'
 
         s += '\n</table>'
 
-        #add jquery and plugins
-        # s += '<script src="../../js/jexpand/jExpand.js"></script>' \
-        #      '<script>' \
-        #      '  $(document).ready(function(){' \
-        #      '    $(".collapse-box").jExpand();' \
-        #      '  });' \
-        #      '</script>'
 
         s += '<script>' \
              '  $(document).ready( function () {' \
@@ -730,22 +658,6 @@ class GeradorDePaginasWeb:
              '</script>'
 
 
-        # $(".ano_esquerda").live("click", function(e){\
-        #     var anoAtual = parseInt($(this).attr("rel"));\
-        #     var contador = $(this).attr("rev");\
-        #     if(anoAtual > ' + str(anoInicio) + '){\
-        #         $("#ano_"+anoAtual+"_"+contador).css("display", "none");\
-        #         $("#ano_"+(anoAtual-1)+"_"+contador).css("display", "block");\
-        #     }\
-        # });\
-        # $(".ano_direita").live("click", function(e){\
-        #     var anoAtual = parseInt($(this).attr("rel"));\
-        #     var contador = $(this).attr("rev");\
-        #     if(anoAtual < ' + str(anoFim) + '){\
-        #         $("#ano_"+anoAtual+"_"+contador).css("display", "none");\
-        #         $("#ano_"+(anoAtual+1)+"_"+contador).css("display", "block");\
-        #     }\
-        # });\
 
 
 
@@ -759,44 +671,23 @@ class GeradorDePaginasWeb:
 
         s = self.pagina_top()
         s += u'\n<h3>{0}</h3>\
-                {7}<br><p>\
+                <br><p>\
                 <table border=0>\
                 <tr><td>\
-                    <img height=130px src={2}>\
                 </td><td>\
                     <ul>\
-                    <li> <a href="{1}">{1}</a> ({3}) </li>\
-                    <li> <b>Rótulo/Grupo:</b> {4}</li>\
-                    <li> <b>Bolsa CNPq:</b> {5}</li>\
-                    <li> <b>Período de análise:</b> {6}</li>\
-                    <li> <b>Endereço:</b> {8}</li>\
-                    <li> <b>Grande área:</b> {9}</li>\
-                    <li> <b>Área:</b> {10}</li>\
-                    <li> <b>Citações:</b> <a href="http://scholar.google.com.br/citations?view_op=search_authors&mauthors={0}">Google Acadêmico</a> </li>\
+                    <li> <b>Atualização</b> {1}</li>\
                     </ul>\
                 </td><tr>\
                 </table><br>'.format(nomeCompleto,
-                        membro.url,
-                        membro.foto,
-                        membro.atualizacaoCV,
-                        rotulo,
-                        bolsa,
-                        membro.periodo,
-                        membro.textoResumo,
-                        membro.enderecoProfissional,
-                        membro.nomePrimeiraGrandeArea,
-                        membro.nomePrimeiraArea)
+
+                        membro.atualizacaoCV)
 
         (nPB0, lista_PB0, titulo_PB0) = self.gerar_lista_de_producoes_de_membro( membro.listaArtigoEmPeriodico, u"Artigos completos publicados em periódicos" )
-        (nPB1, lista_PB1, titulo_PB1) = self.gerar_lista_de_producoes_de_membro( membro.listaLivroPublicado, u"Livros publicados/organizados ou edições" )
-        (nPB2, lista_PB2, titulo_PB2) = self.gerar_lista_de_producoes_de_membro( membro.listaCapituloDeLivroPublicado, u"Capítulos de livros publicados" )
-        (nPB3, lista_PB3, titulo_PB3) = self.gerar_lista_de_producoes_de_membro( membro.listaTextoEmJornalDeNoticia, u"Textos em jornais de notícias/revistas" )
         (nPB4, lista_PB4, titulo_PB4) = self.gerar_lista_de_producoes_de_membro( membro.listaTrabalhoCompletoEmCongresso, u"Trabalhos completos publicados em anais de congressos" )
         (nPB5, lista_PB5, titulo_PB5) = self.gerar_lista_de_producoes_de_membro( membro.listaResumoExpandidoEmCongresso, u"Resumos expandidos publicados em anais de congressos" )
         (nPB6, lista_PB6, titulo_PB6) = self.gerar_lista_de_producoes_de_membro( membro.listaResumoEmCongresso, u"Resumos publicados em anais de congressos" )
-        (nPB7, lista_PB7, titulo_PB7) = self.gerar_lista_de_producoes_de_membro( membro.listaArtigoAceito, u"Artigos aceitos para publicação" )
-        (nPB8, lista_PB8, titulo_PB8) = self.gerar_lista_de_producoes_de_membro( membro.listaApresentacaoDeTrabalho, u"Apresentações de trabalho" )
-        (nPB9, lista_PB9, titulo_PB9) = self.gerar_lista_de_producoes_de_membro( membro.listaOutroTipoDeProducaoBibliografica, u"Demais tipos de produção bibliográfica" )
+
 
 
 
@@ -804,30 +695,18 @@ class GeradorDePaginasWeb:
 
         s += u'<h3>Produção bibliográfica</h3> <ul>'
         s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB0', titulo_PB0, nPB0 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB1', titulo_PB1, nPB1 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB2', titulo_PB2, nPB2 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB3', titulo_PB3, nPB3 )
         s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB4', titulo_PB4, nPB4 )
         s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB5', titulo_PB5, nPB5 )
         s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB6', titulo_PB6, nPB6 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB7', titulo_PB7, nPB7 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB8', titulo_PB8, nPB8 )
-        s += u'<li><a href="#{}">{}</a> ({}) </li>'.format( 'PB9', titulo_PB9, nPB9 )
         s += u'</ul>'
 
 
         s += u'<hr>'
         s += u'<h3>Produção bibliográfica</h3> <ul>'
         s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB0', titulo_PB0, nPB0, lista_PB0)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB1', titulo_PB1, nPB1, lista_PB1)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB2', titulo_PB2, nPB2, lista_PB2)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB3', titulo_PB3, nPB3, lista_PB3)
         s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB4', titulo_PB4, nPB4, lista_PB4)
         s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB5', titulo_PB5, nPB5, lista_PB5)
         s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB6', titulo_PB6, nPB6, lista_PB6)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB7', titulo_PB7, nPB7, lista_PB7)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB8', titulo_PB8, nPB8, lista_PB8)
-        s += u'<li id="{}"> <b>{}</b> ({}) <br> {} </li>'.format( 'PB9', titulo_PB9, nPB9, lista_PB9)
         s += u'</ul>'
 
 
