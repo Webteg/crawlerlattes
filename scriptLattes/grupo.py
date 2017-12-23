@@ -526,7 +526,6 @@ class Grupo:
 
     def gerarGrafosDeColaboracoes(self):
         if self.obterParametro('grafo-mostrar_grafo_de_colaboracoes'):
-            self.grafosDeColaboracoes = GrafoDeColaboracoes(self, self.obterParametro('global-diretorio_de_saida') )
             self.identificar_lista_de_colaboradores_endogenos()
 
         print "\n[ROTULOS]"

@@ -628,7 +628,7 @@ class GeradorDePaginasWeb:
 
             s += u'\n<tr class="testetabela"> \
                      <td valign="center">{0}.</td> \
-                     <td><a href="membro-{1}.html"> {2}</a></td> \
+                     <td>{2}</td> \
                      <td><font size=-2>{3}</font></td> \
                      <td><font size=-2>{4}</font></td> \
                      <td><font size=-2>{5}</font></td> \

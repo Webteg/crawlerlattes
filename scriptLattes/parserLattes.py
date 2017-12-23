@@ -408,20 +408,6 @@ class ParserLattes(HTMLParser):
                                 self.relevante = 0
                                 self.complemento = ''
 
-                            if self.achouLivroPublicado:
-                                iessimoItem = LivroPublicado(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaLivroPublicado.append(iessimoItem)
-                                self.relevante = 0
-
-                            if self.achouCapituloDeLivroPublicado:
-                                iessimoItem = CapituloDeLivroPublicado(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaCapituloDeLivroPublicado.append(iessimoItem)
-                                self.relevante = 0
-
-                            if self.achouTextoEmJornalDeNoticia:
-                                iessimoItem = TextoEmJornalDeNoticia(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaTextoEmJornalDeNoticia.append(iessimoItem)
-                                self.relevante = 0
 
                             if self.achouTrabalhoCompletoEmCongresso:
                                 iessimoItem = TrabalhoCompletoEmCongresso(self.idMembro, self.partesDoItem, self.doi,
@@ -444,20 +430,7 @@ class ParserLattes(HTMLParser):
                                 self.doi = ''
                                 self.relevante = 0
 
-                            if self.achouArtigoAceito:
-                                iessimoItem = ArtigoAceito(self.idMembro, self.partesDoItem, self.doi, self.relevante)
-                                self.listaArtigoAceito.append(iessimoItem)
-                                self.doi = ''
-                                self.relevante = 0
 
-                            if self.achouApresentacaoDeTrabalho:
-                                iessimoItem = ApresentacaoDeTrabalho(self.idMembro, self.partesDoItem, self.relevante)
-                                self.listaApresentacaoDeTrabalho.append(iessimoItem)
-
-                            if self.achouOutroTipoDeProducaoBibliografica:
-                                iessimoItem = OutroTipoDeProducaoBibliografica(self.idMembro, self.partesDoItem,
-                                                                               self.relevante)
-                                self.listaOutroTipoDeProducaoBibliografica.append(iessimoItem)
 
 
 

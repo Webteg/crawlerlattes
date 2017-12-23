@@ -551,75 +551,6 @@ class ParserLattesXML(HTMLParser):
 			pub.doi     = 'http://dx.doi.org/'+self.doi if not self.doi==0 else ''
 			self.listaArtigoEmPeriodico.append(pub)
 
-		# ----------------------------------------------------------------------
-		if tag=='livro-publicado-ou-organizado':
-			self.achouLivroPublicado = 0
-
-			for aut in self.autoresLista:
-				if not aut=='':
-					self.autores+= aut +"; "
-			self.autores = self.autores.strip("; ")
-
-			pub = LivroPublicado(self.idMembro)
-			pub.autores = self.autores
-			pub.titulo  = self.titulo
-			pub.edicao  = self.edicao
-			pub.ano     = self.ano
-			pub.volume  = self.volume
-			pub.paginas = self.paginas
-			pub.chave   = self.autores
-			self.listaLivroPublicado.append(pub)
-
-		# ----------------------------------------------------------------------
-		if tag=='capitulo-de-livro-publicado':
-			self.achouCapituloDeLivroPublicado = 0
-
-			for aut in self.autoresLista:
-				if not aut=='':
-					self.autores+= aut +"; "
-			self.autores = self.autores.strip("; ")
-
-			pub = CapituloDeLivroPublicado(self.idMembro)
-			pub.autores = self.autores
-			pub.titulo  = stripBlanks(self.titulo)
-			pub.livro   = self.livro
-			pub.edicao  = self.edicao
-			pub.editora = self.editora
-			pub.ano     = self.ano
-			pub.volume  = self.volume
-			pub.paginas = self.paginas
-			pub.chave   = self.autores
-			self.listaCapituloDeLivroPublicado.append(pub)
-
-		# ----------------------------------------------------------------------
-		if tag=='texto-em-jornal-ou-revista':
-			self.achouTextoEmJornalDeNoticia = 0
-
-			for aut in self.autoresLista:
-				if not aut=='':
-					self.autores+= aut +"; "
-			self.autores = self.autores.strip("; ")
-
-			pub = TextoEmJornalDeNoticia(self.idMembro)
-			pub.autores  = self.autores
-			pub.titulo   = self.titulo
-			pub.nomeJornal=self.nomeJornal
-			pub.data     = self.data
-			pub.volume   = self.volume
-			pub.paginas  = self.paginas
-			pub.ano      = self.ano
-			pub.chave   = self.autores
-			self.listaTextoEmJornalDeNoticia.append(pub)
-
-		# ----------------------------------------------------------------------
-		if tag=='trabalho-em-eventos':
-			self.achouTrabalhoEmEvento = 0
-
-			for aut in self.autoresLista:
-				if not aut=='':
-					self.autores+= aut +"; "
-			self.autores = self.autores.strip("; ")
-
 
 			if self.achouResumoEmCongresso:
 				self.achouResumoEmCongresso = 0
@@ -662,61 +593,6 @@ class ParserLattesXML(HTMLParser):
 				pub.chave   = self.autores
 				self.listaTrabalhoCompletoEmCongresso.append(pub)
 				return
-
-		# ----------------------------------------------------------------------
-		if tag=='artigo-aceito-para-publicacao':
-			self.achouArtigoAceito = 0
-
-			for aut in self.autoresLista:
-				if not aut=='':
-					self.autores+= aut +"; "
-			self.autores = self.autores.strip("; ")
-
-			pub = ArtigoAceito(self.idMembro)
-			pub.autores = self.autores
-			pub.titulo  = stripBlanks(self.titulo)
-			pub.revista = self.revista
-			pub.volume  = self.volume
-			pub.paginas = self.paginas
-			pub.numero  = self.numero
-			pub.ano     = self.ano
-			pub.chave   = self.autores
-			pub.doi     = 'http://dx.doi.org/'+self.doi if not self.doi==0 else ''
-			self.listaArtigoAceito.append(pub)
-
-		# ----------------------------------------------------------------------
-		if tag=='apresentacao-de-trabalho':
-			self.achouApresentacaoDeTrabalho = 0
-
-			for aut in self.autoresLista:
-				if not aut=='':
-					self.autores+= aut +"; "
-			self.autores = self.autores.strip("; ")
-
-			pub = ApresentacaoDeTrabalho(self.idMembro)
-			pub.autores = self.autores
-			pub.titulo  = stripBlanks(self.titulo)
-			pub.ano     = self.ano
-			pub.natureza= self.nomeEvento+'. ('+self.natureza+')'
-			pub.chave   = self.autores
-			self.listaApresentacaoDeTrabalho.append(pub)
-
-		# ----------------------------------------------------------------------
-		if tag=='outra-producao-bibliografica':
-			self.achouOutroTipoDeProducaoBibliografica = 0
-
-			for aut in self.autoresLista:
-				if not aut=='':
-					self.autores+= aut +"; "
-			self.autores = self.autores.strip("; ")
-
-			pub = OutroTipoDeProducaoBibliografica(self.idMembro)
-			pub.autores = self.autores
-			pub.titulo  = stripBlanks(self.titulo)
-			pub.ano     = self.ano
-			pub.natureza= self.editora+'. ('+self.natureza+')'
-			pub.chave   = self.autores
-			self.listaOutroTipoDeProducaoBibliografica.append(pub)
 
 
 def stripBlanks(s):

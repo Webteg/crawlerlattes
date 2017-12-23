@@ -131,66 +131,7 @@ class CompiladorDeListas:
             self.listaCompletaOutroTipoDeProducaoBibliografica = self.compilarLista(
                 membro.listaOutroTipoDeProducaoBibliografica, self.listaCompletaOutroTipoDeProducaoBibliografica)
 
-            self.listaCompletaSoftwareComPatente = self.compilarLista(membro.listaSoftwareComPatente,
-                                                                      self.listaCompletaSoftwareComPatente)
-            self.listaCompletaSoftwareSemPatente = self.compilarLista(membro.listaSoftwareSemPatente,
-                                                                      self.listaCompletaSoftwareSemPatente)
-            self.listaCompletaProdutoTecnologico = self.compilarLista(membro.listaProdutoTecnologico,
-                                                                      self.listaCompletaProdutoTecnologico)
-            self.listaCompletaProcessoOuTecnica = self.compilarLista(membro.listaProcessoOuTecnica,
-                                                                     self.listaCompletaProcessoOuTecnica)
-            self.listaCompletaTrabalhoTecnico = self.compilarLista(membro.listaTrabalhoTecnico,
-                                                                   self.listaCompletaTrabalhoTecnico)
-            self.listaCompletaOutroTipoDeProducaoTecnica = self.compilarLista(membro.listaOutroTipoDeProducaoTecnica,
-                                                                              self.listaCompletaOutroTipoDeProducaoTecnica)
 
-            self.listaCompletaPatente = self.compilarLista(membro.listaPatente, self.listaCompletaPatente)
-            self.listaCompletaProgramaComputador = self.compilarLista(membro.listaProgramaComputador,
-                                                                      self.listaCompletaProgramaComputador)
-            self.listaCompletaDesenhoIndustrial = self.compilarLista(membro.listaDesenhoIndustrial,
-                                                                     self.listaCompletaDesenhoIndustrial)
-
-            self.listaCompletaProducaoArtistica = self.compilarLista(membro.listaProducaoArtistica,
-                                                                     self.listaCompletaProducaoArtistica)
-
-            self.listaCompletaOASupervisaoDePosDoutorado = self.compilarLista(membro.listaOASupervisaoDePosDoutorado,
-                                                                              self.listaCompletaOASupervisaoDePosDoutorado)
-            self.listaCompletaOATeseDeDoutorado = self.compilarLista(membro.listaOATeseDeDoutorado,
-                                                                     self.listaCompletaOATeseDeDoutorado)
-            self.listaCompletaOADissertacaoDeMestrado = self.compilarLista(membro.listaOADissertacaoDeMestrado,
-                                                                           self.listaCompletaOADissertacaoDeMestrado)
-            self.listaCompletaOAMonografiaDeEspecializacao = self.compilarLista(
-                membro.listaOAMonografiaDeEspecializacao, self.listaCompletaOAMonografiaDeEspecializacao)
-            self.listaCompletaOATCC = self.compilarLista(membro.listaOATCC, self.listaCompletaOATCC)
-            self.listaCompletaOAIniciacaoCientifica = self.compilarLista(membro.listaOAIniciacaoCientifica,
-                                                                         self.listaCompletaOAIniciacaoCientifica)
-            self.listaCompletaOAOutroTipoDeOrientacao = self.compilarLista(membro.listaOAOutroTipoDeOrientacao,
-                                                                           self.listaCompletaOAOutroTipoDeOrientacao)
-
-            self.listaCompletaOCSupervisaoDePosDoutorado = self.compilarLista(membro.listaOCSupervisaoDePosDoutorado,
-                                                                              self.listaCompletaOCSupervisaoDePosDoutorado)
-            self.listaCompletaOCTeseDeDoutorado = self.compilarLista(membro.listaOCTeseDeDoutorado,
-                                                                     self.listaCompletaOCTeseDeDoutorado)
-            self.listaCompletaOCDissertacaoDeMestrado = self.compilarLista(membro.listaOCDissertacaoDeMestrado,
-                                                                           self.listaCompletaOCDissertacaoDeMestrado)
-            self.listaCompletaOCMonografiaDeEspecializacao = self.compilarLista(
-                membro.listaOCMonografiaDeEspecializacao, self.listaCompletaOCMonografiaDeEspecializacao)
-            self.listaCompletaOCTCC = self.compilarLista(membro.listaOCTCC, self.listaCompletaOCTCC)
-            self.listaCompletaOCIniciacaoCientifica = self.compilarLista(membro.listaOCIniciacaoCientifica,
-                                                                         self.listaCompletaOCIniciacaoCientifica)
-            self.listaCompletaOCOutroTipoDeOrientacao = self.compilarLista(membro.listaOCOutroTipoDeOrientacao,
-                                                                           self.listaCompletaOCOutroTipoDeOrientacao)
-
-            self.listaCompletaPremioOuTitulo = self.compilarLista(membro.listaPremioOuTitulo,
-                                                                  self.listaCompletaPremioOuTitulo)
-            # self.listaCompletaProjetoDePesquisa           = self.compilarListaDeProjetos(membro.listaProjetoDePesquisa, self.listaCompletaProjetoDePesquisa)
-            self.listaCompletaProjetoDePesquisa = self.compilarLista(membro.listaProjetoDePesquisa,
-                                                                     self.listaCompletaProjetoDePesquisa)
-
-            self.listaCompletaParticipacaoEmEvento = self.compilarLista(membro.listaParticipacaoEmEvento,
-                                                                        self.listaCompletaParticipacaoEmEvento)
-            self.listaCompletaOrganizacaoDeEvento = self.compilarLista(membro.listaOrganizacaoDeEvento,
-                                                                       self.listaCompletaOrganizacaoDeEvento)
 
         # ---------------------------------------------------------------------------
         # compilamos as producoes de todos os tipos
